@@ -11,13 +11,11 @@ FRONTNAME = CUB3d
 
 CC = gcc
  
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
+
+HEADER = -I./includes -I./libft -I./minilibx
 
 LIB		=	libft.a
-
-LIBINC =	-L/Users?$(USER)/.brew/Cellar/readline/8.1.2/lib/
-
-READLINE_PATH = vendor/readline/
 
 MLX	=	-lmlx -framework OpenGL -framework AppKit
 
@@ -28,28 +26,27 @@ OBJS = $(SRCS:.c=.o)
 
 RM = rm -rf
 
-all: readline ${NAME}
-
-$(READLINE_PATH):
-	sh ./include/install_readline.sh
-
-readline: $(READLINE_PATH)
+all: ${NAME}
 
 .c.o: $(SRCS)
 	@printf $(GREEN)"\r\033[KCreating object files 👉 "$(YELLOW)"<$<> "$(RESET)
-	@$(CC) $(CFLAGS) -I$(READLINE_PATH)/include $(HEADER) -c $< -o $(<:.c=.o)
+	@$(CC) $(CFLAGS) $(HEADER) -c $< -o $(<:.c=.o)
 	
 ${NAME}: ${OBJS}
-		@make -C libft
-		@make bonus -C libft
-		@mv libft/$(LIB) .
+		@make -C Libft
+		@make bonus -C Libft
+		@mv Libft/$(LIB) .
 		@printf $(GREEN)"\r\033[K✅ SUCCESS: "$(WHITE)$(LIB)$(GREEN)" has been created\n"$(RESET)
+		printf "here0\n"
+		@make -C ./minilibx 2>/dev/null
+		printf "here\n"
 		@$(CC) $(OBJS) $(CFLAGS) $(MLX) $(LIB) -o $(NAME)
+		printf "here2\n"
 		@printf $(GREEN)"\r\033[K✅ SUCCESS: "$(WHITE)$(FRONTNAME)$(GREEN)" has been created\n"$(RESET)
 
 clean :
 		@${RM} ${OBJS} $(LIB)
-		@make clean -C libft
+		@make clean -C Libft
 		@printf $(RED)"\r\033[K➜ ["$(FRONTNAME)"] "$(WHITE)"clean"$(RED)" has been done\n"$(RESET)
 		@printf $(RED)"\r\033[K➜ [LIB] library folder has been "$(WHITE)"removed"$(RED)"\n"$(RESET)
 
@@ -59,4 +56,4 @@ fclean: clean
 		
 re: fclean all
 
-.PHONY: all clean fclean re readline
+.PHONY: all clean fclean re 
