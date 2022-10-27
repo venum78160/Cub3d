@@ -17,10 +17,10 @@ HEADER = -I./includes -I./libft -I./minilibx
 
 LIB		=	libft.a
 
-MLX	=	-lmlx -framework OpenGL -framework AppKit
+MLX	=	-lft -lmlx -framework OpenGL -framework AppKit
 
 SRCS = srcs/main.c \
-		#$(addprefix srcs/lexer/, lexer.c lexer_utils.c here_doc.c quotes.c redirection.c cmd_and_arg.c) \
+		$(addprefix srcs/helpful/, helpful.c) \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -35,13 +35,9 @@ all: ${NAME}
 ${NAME}: ${OBJS}
 		@make -C Libft
 		@make bonus -C Libft
-		@mv Libft/$(LIB) .
 		@printf $(GREEN)"\r\033[K✅ SUCCESS: "$(WHITE)$(LIB)$(GREEN)" has been created\n"$(RESET)
-		printf "here0\n"
 		@make -C ./minilibx 2>/dev/null
-		printf "here\n"
-		@$(CC) $(OBJS) $(CFLAGS) $(MLX) $(LIB) -o $(NAME)
-		printf "here2\n"
+		@$(CC) $(CFLAGS) $(HEADER) -o $(NAME) $(SRCS) -lm -L ./libft -lft -lmlx -framework OpenGL -framework AppKit -L ./minilibx
 		@printf $(GREEN)"\r\033[K✅ SUCCESS: "$(WHITE)$(FRONTNAME)$(GREEN)" has been created\n"$(RESET)
 
 clean :
