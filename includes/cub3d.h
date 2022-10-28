@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhotellier <lhotellier@student.42.fr>      +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/10/15 20:20:24 by lhotellier       ###   ########.fr       */
+/*   Updated: 2022/10/28 16:41:32 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_3D
 # define CUB_3D
+
+# define WIDTH 1300
+# define HEIGHT 690
+# define FOVY 0.66
 
 /* ************************* INCLUDES ************************* */
 # include "../Libft/libft.h"
@@ -32,9 +36,12 @@ typedef struct s_map
 }	t_map;
 
 typedef struct s_player {
-	int		x;
-	int		y;
-	int		neg;
+	double		x;
+	double		y;
+	double		dirX;
+	double		dirY;
+	double		planeX;
+	double		planeY;
 }	t_player;
 
 typedef struct s_data {
@@ -50,6 +57,7 @@ typedef struct s_data {
 typedef struct s_info {
 	t_data			st_img;
 	t_map			i_map;
+	t_player		player;
 	char			**map;
 	unsigned int	color;
 }	t_info;

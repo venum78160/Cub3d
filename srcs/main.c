@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhotellier <lhotellier@student.42.fr>      +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/10/20 14:13:54 by lhotellier       ###   ########.fr       */
+/*   Updated: 2022/10/28 16:25:28 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int main(int argc, char **argv)
 	if(argc != 2)
 		msg_exit("Error: please use a correct format.\n");
 	i.st_img.mlx = mlx_init();
-	i.st_img.mlx_win = mlx_new_window(i.st_img.mlx, 700, 700, "Best Game");
-	i.st_img.img = mlx_new_image(i.st_img.mlx, 700, 700);
+	i.st_img.mlx_win = mlx_new_window(i.st_img.mlx, WIDTH, HEIGHT, "Best Game");
+	i.st_img.img = mlx_new_image(i.st_img.mlx, WIDTH, HEIGHT);
 	i.st_img.addr = mlx_get_data_addr(i.st_img.img,
 			&i.st_img.bppixel, &i.st_img.line_length, &i.st_img.endian);
 	i.i_map.name_fichier = argv[1];
