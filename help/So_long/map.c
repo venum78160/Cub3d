@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 19:34:57 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/04/07 19:52:51 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/05 17:37:21 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ void	m_nbr_ennemi(t_info *i)
 				i->map.nbr_ennemi++;
 		}
 	}
-	i->ennemi = calloc(sizeof(t_player), i->map.nbr_ennemi);
+	i->ennemi = calloc(sizeof(t_pla), i->map.nbr_ennemi);
 }

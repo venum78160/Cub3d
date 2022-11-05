@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 13:49:54 by vl-hotel          #+#    #+#             */
-/*   Updated: 2021/12/10 16:51:50 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/05 17:37:21 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void	ml_fond_case(int x, int y, t_info *i)
 	int	ind_x;
 	int	ind_y;
 
-	ind_x = i->player.x - 3 + ((x - 126) / 64);
-	ind_y = i->player.y - 3 + ((y - 126) / 64);
+	ind_x = i->pla.x - 3 + ((x - 126) / 64);
+	ind_y = i->pla.y - 3 + ((y - 126) / 64);
 	if (ind_x < 0 || ind_y < 0)
 		ml_rect(*i, (t_rect){x, x + 64, y, y + 64}, 0x00499848);
 	else if (ind_x >= i->map.map_width || ind_y >= i->map.map_height)
 		ml_rect(*i, (t_rect){x, x + 64, y, y + 64}, 0x00499848);
-	else if (ind_x == i->player.x && ind_y == i->player.y)
+	else if (ind_x == i->pla.x && ind_y == i->pla.y)
 		ml_rect(*i, (t_rect){x, x + 64, y, y + 64}, 0x00499848);
 	else if (i->map.map_s[ind_y][ind_x] == '1')
 		ml_rect(*i, (t_rect){x, x + 64, y, y + 64}, 0x00499848);
@@ -85,13 +85,13 @@ void	ml_sprite_case(int x, int y, t_info *i)
 	int	ind_x;
 	int	ind_y;
 
-	ind_x = i->player.x - 3 + ((x - 126) / 64);
-	ind_y = i->player.y - 3 + ((y - 126) / 64);
+	ind_x = i->pla.x - 3 + ((x - 126) / 64);
+	ind_y = i->pla.y - 3 + ((y - 126) / 64);
 	if (ind_x < 0 || ind_y < 0)
 		sprite_grasstree(i, x, y);
 	else if (ind_x >= i->map.map_width || ind_y >= i->map.map_height)
 		sprite_grasstree(i, x, y);
-	else if (ind_x == i->player.x && ind_y == i->player.y)
+	else if (ind_x == i->pla.x && ind_y == i->pla.y)
 	{
 		mlx_put_image_to_window(i->mlx, i->mlx_win, i->map.gr, x + 10, y + 10);
 		mlx_put_image_to_window(i->mlx, i->mlx_win, i->map.hero, x + 10, y + 5);

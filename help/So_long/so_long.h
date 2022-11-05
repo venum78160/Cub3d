@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhotellier <lhotellier@student.42.fr>      +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/10/15 15:27:15 by lhotellier       ###   ########.fr       */
+/*   Updated: 2022/11/05 17:37:21 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ typedef struct s_map
 	char	**map_s;
 	int		coll;
 	int		exit;
-	int		player;
+	int		pla;
 	int		nbr_ennemi;
 	char	*name_fichier;
 }	t_map;
 
-typedef struct s_player {
+typedef struct s_pla {
 	int		x;
 	int		y;
 	int		neg;
-}	t_player;
+}	t_pla;
 
 typedef struct s_data {
 	void	*img;
@@ -81,8 +81,8 @@ typedef struct s_info {
 	void			*mlx;
 	void			*mlx_win;
 	int				gg;
-	t_player		player;
-	t_player		*ennemi;
+	t_pla		pla;
+	t_pla		*ennemi;
 	t_map			map;
 	int				dead;
 	unsigned int	color;

@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 18:34:07 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/04/11 16:57:08 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/05 18:41:15 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	make_struct(t_info *i, char *fichier)
 	i->map.coll = 0;
 	i->map.exit = 0;
 	i->map.nb_m = 0;
-	i->map.player = 0;
-	i->player.x = 0;
-	i->player.y = 0;
+	i->map.pla = 0;
+	i->pla.x = 0;
+	i->pla.y = 0;
 	i->map.name_fichier = fichier;
 	i->dead = 0;
 	i->gg = 0;

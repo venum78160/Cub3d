@@ -20,7 +20,7 @@ LIB		=	libft.a
 MLX	=	-lft -lmlx -framework OpenGL -framework AppKit
 
 SRCS = srcs/main.c \
-		$(addprefix srcs/helpful/, helpful.c) \
+		$(addprefix srcs/helpful/, helpful.c raycasting_help.c) \
 
 OBJS = $(SRCS:.c=.o)
 

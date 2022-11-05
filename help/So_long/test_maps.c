@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_maps.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lhotellier <lhotellier@student.42.fr>      +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 19:17:49 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/10/14 18:48:17 by lhotellier       ###   ########.fr       */
+/*   Updated: 2022/11/05 17:37:21 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	m_verif_cat(t_info *i, char *ligne, int comp, int fd)
 			if (ligne[j] == 'C')
 				i->map.coll++;
 			else if (ligne[j] == 'P')
-				i->map.player++;
+				i->map.pla++;
 			else if (ligne[j] == 'E')
 				i->map.exit++;
 			else if (ft_test(ligne[j], "01CPED") == 0)
@@ -66,8 +66,8 @@ void	m_verif_pec(t_info i)
 		msg_exit("pas assez de collectible");
 	if (i.map.exit < 1)
 		msg_exit("pas assez d'exit");
-	if (i.map.player != 1)
-		msg_exit("pas le bon nombre de player");
+	if (i.map.pla != 1)
+		msg_exit("pas le bon nombre de pla");
 }
 
 void	m_verif_map(t_info *i, char *fichier, int comp)

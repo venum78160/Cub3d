@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 14:52:01 by vl-hotel          #+#    #+#             */
-/*   Updated: 2021/12/08 16:06:44 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/05 17:37:21 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ void	move_mob(t_info *i)
 		else if (i->ennemi[n].neg == -1
 			&& i->map.map_s[i->ennemi[n].y][i->ennemi[n].x - 1] == '1')
 			i->ennemi[n].neg = 1;
-		if (i->player.x == i->ennemi[n].x
-			&& i->player.y == i->ennemi[n].y)
+		if (i->pla.x == i->ennemi[n].x
+			&& i->pla.y == i->ennemi[n].y)
 			i->dead = 1;
 		i->ennemi[n].x += i->ennemi[n].neg;
-		if (i->player.x == i->ennemi[n].x
-			&& i->player.y == i->ennemi[n].y)
+		if (i->pla.x == i->ennemi[n].x
+			&& i->pla.y == i->ennemi[n].y)
 			i->dead = 1;
 		n++;
 	}

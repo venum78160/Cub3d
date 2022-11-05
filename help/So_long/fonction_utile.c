@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/27 18:55:57 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/04/14 16:48:09 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/05 17:37:21 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	m_init(t_info *info, char c, int x, int y)
 
 	if (c == 'P')
 	{
-		info->player.x = x;
-		info->player.y = y;
+		info->pla.x = x;
+		info->pla.y = y;
 		info->map.map_s[y][x] = '0';
 	}
 	else if (c == 'D')
