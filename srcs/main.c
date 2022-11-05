@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/05 23:26:40 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/05 23:43:52 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	backgroud(t_info *i)
 	int x;
 	int y;
 
-	x = 0;
+	x = -1;
 	while (++x <= WIDTH)
 	{
 		y = -1;
@@ -114,7 +114,7 @@ void	init_ray(t_info *i, int x)
 	if (!i->pla.rayDirY)
 		i->pla.delta_Y = INFINITY;
 	else
-		i->pla.delta_Y = fabs(1 / i->pla.rayDirX);
+		i->pla.delta_Y = fabs(1 / i->pla.rayDirY);
 	i->pla.hit = 0;
 	step(i);
 	dda(i);
@@ -219,7 +219,6 @@ int	keyevent(int keyword, t_info *i)
 	printf("drawn start[%i]drawn end[%i]\n", i->pla.draw_start, i->pla.draw_end);
 	if(keyword == UP)
 	{
-		printf("UP\n");
 		if (i->map[(int)(i->pla.pl_x + i->pla.dirX * SPEED)]
 			[(int)i->pla.pl_y] != '1')
 			i->pla.pl_x += i->pla.dirX * SPEED;
@@ -229,7 +228,6 @@ int	keyevent(int keyword, t_info *i)
 	}
 	if(keyword == DOWN)
 	{
-		printf("DOWN\n");
 		if (i->map[(int)(i->pla.pl_x - i->pla.dirX * SPEED)]
 			[(int)i->pla.pl_y] != '1')
 			i->pla.pl_x -= i->pla.dirX * SPEED;
