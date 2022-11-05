@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/05 18:47:57 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/05 23:26:40 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,31 @@ int	ft_quit(t_info *i)
 	return (EXIT_SUCCESS);
 }
 
+void	backgroud(t_info *i)
+{
+	int x;
+	int y;
+
+	x = 0;
+	while (++x <= WIDTH)
+	{
+		y = -1;
+		while (++y <= HEIGHT)
+		{
+			if( y <= (HEIGHT / 2))
+				my_mlx_pixel_put(&i->st_img, x, y, i->ceiling_c);
+			else
+				my_mlx_pixel_put(&i->st_img, x, y, i->floor_c);
+		}
+	}
+	mlx_put_image_to_window(i->st_img.mlx, i->st_img.mlx_win, i->st_img.img, 0, 0);
+}
 int	render(t_info *i)
 {
 	int x;
 
 	x = -1;
+	backgroud(i);
 	while (++x < WIDTH)
 	{
 		init_ray(i, x);
@@ -58,14 +78,25 @@ void	print_text(t_info *i, int x)
 void	print_line_wall(int x, t_info *i, int color)
 {
 	int y;
+	// int ymin;
+	// int ymax;
 
 	y = i->pla.draw_start;
-	// printf("valeur de x = %i, valeur de y %i, draw_end %i\n", x, y, i->pla.draw_end);
+	// ymin = y;
+	// ymax = y;
+	// if (x == 100)
+		// printf("valeur de x = %i, valeur de y %i, draw_end %i\n", x, y, i->pla.draw_end);
 	while (y <= i->pla.draw_end)
 	{
+		// if (y < ymin)
+		// 	ymin = y;
+		// if (y > ymax)
+		// 	ymax = y;
 		my_mlx_pixel_put(&i->st_img, x, y, color);
 		y++;
 	}
+	// if (x == 100)
+	// 	printf("valeur ymin %i ymax %i\n", ymin, ymax);
 }
 
 void	init_ray(t_info *i, int x)
@@ -152,26 +183,28 @@ void parsing(t_info *i)
 	char **result;
 	int j;
 
-	result = ft_calloc(sizeof(char *), 8);
-	result[0] = ft_strdup("11111");
-	result[1] = ft_strdup("10001");
-	result[2] = ft_strdup("10001");
-	result[3] = ft_strdup("10N01");
-	result[4] = ft_strdup("10001");
-	result[5] = ft_strdup("10001");
-	result[6] = ft_strdup("11111");
+	result = ft_calloc(sizeof(char *), 9);
+	result[0] = ft_strdup("11111111111111111111111");
+	result[1] = ft_strdup("10000000111100000000001");
+	result[2] = ft_strdup("10000000000000000000001");
+	result[3] = ft_strdup("11N00000000000000000001");
+	result[4] = ft_strdup("10000000000000000000001");
+	result[5] = ft_strdup("10000000111100000000001");
+	result[6] = ft_strdup("10000000111100000000001");
+	result[7] = ft_strdup("11111111111111111111111");
 	i->map = result;
 	j = 0;
-	i->pla.pl_x = 2;
-	i->pla.pl_y = 3;
-	i->pla.dirX = 1;
-	i->pla.dirY = 1; //initial direction vector
+	i->pla.pl_x = 2.5;
+	i->pla.pl_y = 3.5;
+	i->pla.dirX = -1;
+	i->pla.dirY = 0; //initial direction vector
 	i->pla.planeX = 0;
 	i->pla.planeY = FOVY; //the 2d raycaster version of camera plane
 	
   	i->pla.time = 0; //time of current frame
   	i->pla.oldtime = 0; //time of previous frame
-	i->color = 00000000;
+	i->floor_c = 206206206;
+	i->ceiling_c = 119181254;
 	while (i->map[j])
 	{
 		printf("%s\n", i->map[j]);
@@ -182,8 +215,11 @@ void parsing(t_info *i)
 int	keyevent(int keyword, t_info *i)
 {
 	printf("key = %i\n", keyword);
+	printf("pose jouer y[%f]x[%f]\n", i->pla.pl_y, i->pla.pl_x);
+	printf("drawn start[%i]drawn end[%i]\n", i->pla.draw_start, i->pla.draw_end);
 	if(keyword == UP)
 	{
+		printf("UP\n");
 		if (i->map[(int)(i->pla.pl_x + i->pla.dirX * SPEED)]
 			[(int)i->pla.pl_y] != '1')
 			i->pla.pl_x += i->pla.dirX * SPEED;
@@ -193,6 +229,7 @@ int	keyevent(int keyword, t_info *i)
 	}
 	if(keyword == DOWN)
 	{
+		printf("DOWN\n");
 		if (i->map[(int)(i->pla.pl_x - i->pla.dirX * SPEED)]
 			[(int)i->pla.pl_y] != '1')
 			i->pla.pl_x -= i->pla.dirX * SPEED;
@@ -200,14 +237,47 @@ int	keyevent(int keyword, t_info *i)
 			[(int)(i->pla.pl_y - i->pla.dirY * SPEED)] != '1')
 			i->pla.pl_y -= i->pla.dirY * SPEED;
 	}
-	// if(keyword == LEFT)
-	// {
-		
-	// }
-	// if(keyword == RIGHT)
-	// {
-		
-	// }
+	if(keyword == LEFT)
+	{
+
+		if (i->map[(int)(i->pla.pl_x - i->pla.planeX * SPEED)]
+			[(int)i->pla.pl_y] != '1')
+			i->pla.pl_x -= i->pla.planeX * SPEED;
+		if (i->map[(int)i->pla.pl_x]
+			[(int)(i->pla.pl_y - i->pla.planeY * SPEED)] != '1')
+			i->pla.pl_y -= i->pla.planeY * SPEED;
+	}
+	if(keyword == RIGHT)
+	{
+		if (i->map[(int)(i->pla.pl_x + i->pla.planeX * SPEED)]
+			[(int)i->pla.pl_y] != '1')
+			i->pla.pl_x += i->pla.planeX * SPEED;
+		if (i->map[(int)i->pla.pl_x]
+			[(int)(i->pla.pl_y + i->pla.planeY * SPEED)] != '1')
+			i->pla.pl_y += i->pla.planeY * SPEED;
+	}
+	if(keyword == ARROW_R)
+	{
+		double oldDirX;
+		oldDirX = i->pla.dirX;
+		i->pla.dirX = i->pla.dirX * cos(-1 * SPEED_ROT) - i->pla.dirY * sin(-1 * SPEED_ROT);
+      	i->pla.dirY = oldDirX * sin(-1 * SPEED_ROT) + i->pla.dirY * cos(-1 * SPEED_ROT);
+      	double oldPlaneX;
+		oldPlaneX = i->pla.planeX;
+      	i->pla.planeX = i->pla.planeX * cos(-1 * SPEED_ROT) - i->pla.planeY * sin(-1 * SPEED_ROT);
+		i->pla.planeY = oldPlaneX * sin(-1 * SPEED_ROT) + i->pla.planeY * cos(-1 * SPEED_ROT);
+	}
+	if(keyword == ARROW_L)
+	{
+		double oldDirX;
+		oldDirX = i->pla.dirX;
+		i->pla.dirX = i->pla.dirX * cos(SPEED_ROT) - i->pla.dirY * sin(SPEED_ROT);
+      	i->pla.dirY = oldDirX * sin(SPEED_ROT) + i->pla.dirY * cos(SPEED_ROT);
+      	double oldPlaneX;
+		oldPlaneX = i->pla.planeX;
+      	i->pla.planeX = i->pla.planeX * cos(SPEED_ROT) - i->pla.planeY * sin(SPEED_ROT);
+		i->pla.planeY = oldPlaneX * sin(SPEED_ROT) + i->pla.planeY * cos(SPEED_ROT);
+	}
 	if(keyword == ESC)
 	{
 		ft_quit(i);

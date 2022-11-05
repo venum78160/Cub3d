@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/05 18:42:15 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/05 22:50:58 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # define LEFT 0
 # define RIGHT 2
 # define SPEED 0.11
+# define SPEED_ROT 0.04
+# define ARROW_L 123
+# define ARROW_R 124
 
 
 /* ************************* INCLUDES ************************* */
@@ -87,7 +90,8 @@ typedef struct s_info {
 	t_map			i_map;
 	t_pla			pla;
 	char			**map;
-	unsigned int	color;
+	unsigned int	floor_c;
+	unsigned int	ceiling_c;
 }	t_info;
 
 
