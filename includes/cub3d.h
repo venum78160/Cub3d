@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/08 17:46:43 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/10 19:40:41 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,12 @@ void	dda(t_info *i);
 void 	parsing(t_info *i);
 int		keyevent(int keyword, t_info *i);
 int		ft_quit(t_info *i);
+
+/* *************************** PARSING *********************** */
+
+void 	parsing_v2(t_info *i, char* src);
+int		ft_open(char *src);
+
 /* *************************** INIT ************************** */
 
 

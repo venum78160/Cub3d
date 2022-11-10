@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"mlx_opengl.h": "c"
+		"mlx_opengl.h": "c",
+		"cub3d.h": "c"
 	}
 }
