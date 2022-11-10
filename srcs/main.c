@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/05 23:43:52 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/08 18:09:38 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,32 +71,31 @@ void	print_text(t_info *i, int x)
 		i->pla.draw_start = 0;
 	i->pla.draw_end = i->pla.line_h / 2.0 + HEIGHT / 2.0;
 	if (i->pla.draw_end >= HEIGHT)
-		i->pla.draw_end = HEIGHT - 1;
+		i->pla.draw_end = HEIGHT + 1;
+
+	if (i->pla.side)
+		i->text.wallx = i->pla.pl_y + i->pla.dist_wall * i->pla.rayDirY;
+	else
+		i->text.wallx = i->pla.pl_x + i->pla.dist_wall * i->pla.rayDirX;
+	i->text.wallx -= floor(i->text.wallx);
+	i->text.texX = (int)(i->text.wallx * (double)TEXT_SIZE);
+	if (!i->pla.side && i->pla.rayDirX > 0)
+		i->text.texX = TEXT_SIZE - i->text.texX;
+	if (i->pla.side && i->pla.rayDirX < 0)
+		i->text.texX = TEXT_SIZE - i->text.texX;
 	print_line_wall(x, i, 0x00FF0000);
 }
 
 void	print_line_wall(int x, t_info *i, int color)
 {
 	int y;
-	// int ymin;
-	// int ymax;
 
 	y = i->pla.draw_start;
-	// ymin = y;
-	// ymax = y;
-	// if (x == 100)
-		// printf("valeur de x = %i, valeur de y %i, draw_end %i\n", x, y, i->pla.draw_end);
 	while (y <= i->pla.draw_end)
 	{
-		// if (y < ymin)
-		// 	ymin = y;
-		// if (y > ymax)
-		// 	ymax = y;
 		my_mlx_pixel_put(&i->st_img, x, y, color);
 		y++;
 	}
-	// if (x == 100)
-	// 	printf("valeur ymin %i ymax %i\n", ymin, ymax);
 }
 
 void	init_ray(t_info *i, int x)
@@ -182,6 +181,8 @@ void parsing(t_info *i)
 {
 	char **result;
 	int j;
+	int x;
+	int y;
 
 	result = ft_calloc(sizeof(char *), 9);
 	result[0] = ft_strdup("11111111111111111111111");
@@ -205,11 +206,10 @@ void parsing(t_info *i)
   	i->pla.oldtime = 0; //time of previous frame
 	i->floor_c = 206206206;
 	i->ceiling_c = 119181254;
-	while (i->map[j])
-	{
-		printf("%s\n", i->map[j]);
-		j++;
-	}
+	i->text.text_N = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/acacia_leaves_opaque.xpm", &x, &y);
+	i->text.text_S = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/jungle_leaves_opaque.xpm", &x, &y);
+	i->text.text_W = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/grass_block.xpm", &x, &y);
+	i->text.text_E = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/jungle_log_top.xpm", &x, &y);
 }
 
 int	keyevent(int keyword, t_info *i)
@@ -290,7 +290,7 @@ int	main(int argc, char **argv)
 	if(argc != 2)
 		msg_exit("Error: please use a correct format.\n");
 	i.st_img.mlx = mlx_init();
-	i.st_img.mlx_win = mlx_new_window(i.st_img.mlx, WIDTH, HEIGHT, "Best Game");
+	i.st_img.mlx_win = mlx_new_window(i.st_img.mlx, WIDTH, HEIGHT, "CUB_3D");
 	i.st_img.img = mlx_new_image(i.st_img.mlx, WIDTH, HEIGHT);
 	i.st_img.addr = mlx_get_data_addr(i.st_img.img,
 			&i.st_img.bppixel, &i.st_img.line_length, &i.st_img.endian);

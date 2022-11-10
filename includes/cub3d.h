@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/05 22:50:58 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/08 17:46:43 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,18 @@ typedef struct s_map
 {
 	int		map_width;
 	int		map_height;
-	int		pla;
 	char	*name_fichier;
 }	t_map;
+
+typedef struct s_texture
+{
+	void	*text_N;
+	void	*text_S;
+	void	*text_E;
+	void	*text_W;
+	double	wallx;
+	double	texX;
+}	t_text;
 
 typedef struct s_pla {
 	double		pl_x;
@@ -89,6 +98,7 @@ typedef struct s_info {
 	t_data			st_img;
 	t_map			i_map;
 	t_pla			pla;
+	t_text			text;
 	char			**map;
 	unsigned int	floor_c;
 	unsigned int	ceiling_c;
