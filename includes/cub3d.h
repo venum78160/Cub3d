@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/08 17:46:43 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/16 21:00:14 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 # define SPEED_ROT 0.04
 # define ARROW_L 123
 # define ARROW_R 124
+# define LOC_MAP_X 100
+# define LOC_MAP_Y 100
+# define SIZE_BLOCK_MAP 20
+# define NBR_BL_MAP 7
 
 
 /* ************************* INCLUDES ************************* */
@@ -46,14 +50,25 @@ typedef struct s_map
 	char	*name_fichier;
 }	t_map;
 
+typedef struct s_data {
+	void	*mlx;
+	void	*mlx_win;
+	void	*img;
+	char	*addr;
+	int		bppixel;
+	int		line_length;
+	int		endian;
+}	t_data;
+
 typedef struct s_texture
 {
-	void	*text_N;
-	void	*text_S;
-	void	*text_E;
-	void	*text_W;
+	t_data	*text_N;
+	t_data	*text_S;
+	t_data	*text_E;
+	t_data	*text_W;
 	double	wallx;
-	double	texX;
+	int		texX;
+	int		color;
 }	t_text;
 
 typedef struct s_pla {
@@ -83,16 +98,6 @@ typedef struct s_pla {
 	double		time;
 	double		oldtime;
 }	t_pla;
-
-typedef struct s_data {
-	void	*mlx;
-	void	*mlx_win;
-	void	*img;
-	char	*addr;
-	int		bppixel;
-	int		line_length;
-	int		endian;
-}	t_data;
 
 typedef struct s_info {
 	t_data			st_img;

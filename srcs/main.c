@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/08 18:09:38 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/16 21:09:25 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,10 @@ void	print_text(t_info *i, int x)
 	i->text.wallx -= floor(i->text.wallx);
 	i->text.texX = (int)(i->text.wallx * (double)TEXT_SIZE);
 	if (!i->pla.side && i->pla.rayDirX > 0)
-		i->text.texX = TEXT_SIZE - i->text.texX;
-	if (i->pla.side && i->pla.rayDirX < 0)
-		i->text.texX = TEXT_SIZE - i->text.texX;
+		i->text.texX = TEXT_SIZE - i->text.texX -1;
+	if (i->pla.side && i->pla.rayDirY < 0)
+		i->text.texX = TEXT_SIZE - i->text.texX -1;
+	// print_line_wall(x, i, 0x00AA00AA);
 	print_line_wall(x, i, 0x00FF0000);
 }
 
@@ -97,6 +98,18 @@ void	print_line_wall(int x, t_info *i, int color)
 		y++;
 	}
 }
+
+// void	print_line_wall(int x, t_info *i, int color)
+// {
+// 	int y;
+
+// 	y = i->pla.draw_start;
+// 	while (y <= i->pla.draw_end)
+// 	{
+// 		my_mlx_pixel_put(&i->st_img, x, y, color);
+// 		y++;
+// 	}
+// }
 
 void	init_ray(t_info *i, int x)
 {
@@ -204,12 +217,29 @@ void parsing(t_info *i)
 	
   	i->pla.time = 0; //time of current frame
   	i->pla.oldtime = 0; //time of previous frame
-	i->floor_c = 206206206;
+	// i->floor_c = 206206206;
+	i->floor_c = 00250230215;
 	i->ceiling_c = 119181254;
 	i->text.text_N = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/acacia_leaves_opaque.xpm", &x, &y);
 	i->text.text_S = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/jungle_leaves_opaque.xpm", &x, &y);
 	i->text.text_W = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/grass_block.xpm", &x, &y);
 	i->text.text_E = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/jungle_log_top.xpm", &x, &y);
+
+
+
+
+	// i->text.text_N = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/acacia_leaves_opaque.xpm", &x, &y);
+	// i->text.text_N->addr = mlx_get_data_addr(&i->text.text_N->img,
+	// 		&i->text.text_N->bppixel, &i->text.text_N->line_length, &i->text.text_N->endian);
+	// i->text.text_S = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/jungle_leaves_opaque.xpm", &x, &y);
+	// i->text.text_S->addr = mlx_get_data_addr(&i->text.text_S->img,
+	// 		&i->text.text_S->bppixel, &i->text.text_S->line_length, &i->text.text_S->endian);
+	// i->text.text_W = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/grass_block.xpm", &x, &y);
+	// i->text.text_W->addr = mlx_get_data_addr(&i->text.text_W->img,
+	// 		&i->text.text_W->bppixel, &i->text.text_W->line_length, &i->text.text_W->endian);
+	// i->text.text_E = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/jungle_log_top.xpm", &x, &y);
+	// i->text.text_E->addr = mlx_get_data_addr(&i->text.text_E->img,
+	// 		&i->text.text_E->bppixel, &i->text.text_E->line_length, &i->text.text_E->endian);
 }
 
 int	keyevent(int keyword, t_info *i)
