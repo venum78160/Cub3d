@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/16 21:00:14 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/18 15:32:17 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define LOC_MAP_Y 100
 # define SIZE_BLOCK_MAP 20
 # define NBR_BL_MAP 7
+# define SENSIVITY 0.7
 
 
 /* ************************* INCLUDES ************************* */
@@ -120,6 +121,18 @@ void	dda(t_info *i);
 void 	parsing(t_info *i);
 int		keyevent(int keyword, t_info *i);
 int		ft_quit(t_info *i);
+
+/* *************************** PARSING *********************** */
+
+void 	parsing_v2(t_info *i, char* src);
+int		ft_open(char *src);
+int		ft_strcmp(const char *s1, const char *s2);
+int		ft_error(char *err, int type);
+char	*ft_gnljoin(char *s1, char *s2);
+char	*get_extension(char *src);
+char	*get_next_line(int fd);
+
+
 /* *************************** INIT ************************** */
 
 
