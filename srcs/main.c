@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/16 21:09:25 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/18 15:10:02 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,16 @@ void	print_text(t_info *i, int x)
 	if (i->pla.draw_end >= HEIGHT)
 		i->pla.draw_end = HEIGHT + 1;
 
-	if (i->pla.side)
-		i->text.wallx = i->pla.pl_y + i->pla.dist_wall * i->pla.rayDirY;
-	else
-		i->text.wallx = i->pla.pl_x + i->pla.dist_wall * i->pla.rayDirX;
-	i->text.wallx -= floor(i->text.wallx);
-	i->text.texX = (int)(i->text.wallx * (double)TEXT_SIZE);
-	if (!i->pla.side && i->pla.rayDirX > 0)
-		i->text.texX = TEXT_SIZE - i->text.texX -1;
-	if (i->pla.side && i->pla.rayDirY < 0)
-		i->text.texX = TEXT_SIZE - i->text.texX -1;
+	// if (i->pla.side)
+	// 	i->text.wallx = i->pla.pl_y + i->pla.dist_wall * i->pla.rayDirY;
+	// else
+	// 	i->text.wallx = i->pla.pl_x + i->pla.dist_wall * i->pla.rayDirX;
+	// i->text.wallx -= floor(i->text.wallx);
+	// i->text.texX = (int)(i->text.wallx * (double)TEXT_SIZE);
+	// if (!i->pla.side && i->pla.rayDirX > 0)
+	// 	i->text.texX = TEXT_SIZE - i->text.texX -1;
+	// if (i->pla.side && i->pla.rayDirY < 0)
+	// 	i->text.texX = TEXT_SIZE - i->text.texX -1;
 	// print_line_wall(x, i, 0x00AA00AA);
 	print_line_wall(x, i, 0x00FF0000);
 }
@@ -210,10 +210,13 @@ void parsing(t_info *i)
 	j = 0;
 	i->pla.pl_x = 2.5;
 	i->pla.pl_y = 3.5;
-	i->pla.dirX = -1;
-	i->pla.dirY = 0; //initial direction vector
-	i->pla.planeX = 0;
-	i->pla.planeY = FOVY; //the 2d raycaster version of camera plane
+	// i->pla.dirX = -1;
+	// i->pla.dirY = 0; //initial direction vector
+	// i->pla.planeX = 0;
+	// i->pla.planeY = FOVY; //the 2d raycaster version of camera plane
+	
+	// -1, 0;
+
 	
   	i->pla.time = 0; //time of current frame
   	i->pla.oldtime = 0; //time of previous frame
@@ -224,6 +227,99 @@ void parsing(t_info *i)
 	i->text.text_S = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/jungle_leaves_opaque.xpm", &x, &y);
 	i->text.text_W = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/grass_block.xpm", &x, &y);
 	i->text.text_E = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/jungle_log_top.xpm", &x, &y);
+
+// 	if(N)
+// 		{
+// 			i->pla.planeX = 0;
+// 			i->pla.planeY = FOVY
+// 		}
+// 	else if (S)
+// 	{
+// 		i->pla.planeX = 0;
+// 		i->pla.planeY = -1 * FOVY
+// 	}
+// 	else if (E)
+// 	{
+// 		i->pla.planeX = FOVY;
+// 		i->pla.planeY = 0;
+// 	}
+// 	else
+// 	{
+// 		i->pla.planeX = -1 * FOVY;
+// 		i->pla.planeY = 0;	
+// 	}
+
+// {
+	char c = 'W';
+	if (c == 'N')
+	{
+		printf("NORD\n");
+		i->pla.dirX = -1;
+		i->pla.dirY = 0;
+		i->pla.planeX = 0;
+		i->pla.planeY = FOVY;
+	}
+	else if (c == 'S')
+	{
+		printf("SUD\n");
+		i->pla.dirX = 1;
+		i->pla.dirY = 0;
+		i->pla.planeX = 0;
+		i->pla.planeY = FOVY * -1;
+	}
+	else if (c == 'E')
+	{
+		printf("EST\n");
+		i->pla.dirX = 0;
+		i->pla.dirY = 1;
+		i->pla.planeX = FOVY;
+		i->pla.planeY = 0;
+	}
+	else
+	{
+		printf("WOUEST\n");
+		i->pla.dirX = 0;
+		i->pla.dirY = -1;
+		i->pla.planeX = FOVY * -1;
+		i->pla.planeY = 0;
+	}
+
+// 	int try_set_spawn_point(char c, t_info *infos)
+// {
+//     if (c == 'N')
+//     {
+//         infos->pla.dirX = 0;
+//         infos->pla.dirY = -1;
+//         infos->pla.planeX = 0;
+//         infos->pla.planeY = FOVY;
+//         return (1);
+//     }
+//     if (c == 'S')
+//     {
+//         infos->pla.dirX = 0;
+//         infos->pla.dirY = 1;
+//         infos->pla.planeX = 0;
+//         infos->pla.planeY = -1 * FOVY;
+//         return (1);
+//     }
+//     if (c == 'E')
+//     {
+//         infos->pla.dirX = 1;
+//         infos->pla.dirY = 0;
+//         infos->pla.planeX = FOVY;
+//         infos->pla.planeY = 0;
+//         return (1);
+//     }
+//     if (c == 'W')
+//     {
+//         infos->pla.dirX = -1;
+//         infos->pla.dirY = 0;
+//         infos->pla.planeX = -1 * FOVY;
+//         infos->pla.planeY = 0;
+//         return (1); 
+//     }
+//     return (0);
+// }
 
 
 
@@ -327,6 +423,7 @@ int	main(int argc, char **argv)
 	i.i_map.name_fichier = argv[1];
 	parsing(&i);
 	printf("before render\n");
+	printf("planex = %f, planeY = %f, dirX = %f, dirY = %f\n", i.pla.planeX, i.pla.planeY, i.pla.dirX, i.pla.dirY);
 	mlx_loop_hook(i.st_img.mlx, render, &i);
 	mlx_hook(i.st_img.mlx_win, 2, 1L<<0, keyevent, &i);
 	mlx_loop(i.st_img.mlx);
