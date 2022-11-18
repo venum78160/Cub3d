@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/18 17:35:28 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/18 23:26:39 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,30 +73,86 @@ void	print_text(t_info *i, int x)
 	if (i->pla.draw_end >= HEIGHT)
 		i->pla.draw_end = HEIGHT + 1;
 
-	// if (i->pla.side)
-	// 	i->text.wallx = i->pla.pl_y + i->pla.dist_wall * i->pla.rayDirY;
-	// else
-	// 	i->text.wallx = i->pla.pl_x + i->pla.dist_wall * i->pla.rayDirX;
-	// i->text.wallx -= floor(i->text.wallx);
-	// i->text.texX = (int)(i->text.wallx * (double)TEXT_SIZE);
-	// if (!i->pla.side && i->pla.rayDirX > 0)
-	// 	i->text.texX = TEXT_SIZE - i->text.texX -1;
-	// if (i->pla.side && i->pla.rayDirY < 0)
-	// 	i->text.texX = TEXT_SIZE - i->text.texX -1;
+	if (i->pla.side)
+		i->text.wallx = i->pla.pl_y + i->pla.dist_wall * i->pla.rayDirY;
+	else
+		i->text.wallx = i->pla.pl_x + i->pla.dist_wall * i->pla.rayDirX;
+	i->text.wallx -= floor(i->text.wallx);
+	i->text.texX = (int)(i->text.wallx * (double)TEXT_SIZE);
+	if (!i->pla.side && i->pla.rayDirX > 0)
+		i->text.texX = TEXT_SIZE - i->text.texX -1;
+	if (i->pla.side && i->pla.rayDirY < 0)
+		i->text.texX = TEXT_SIZE - i->text.texX -1;
 	// print_line_wall(x, i, 0x00AA00AA);
-	print_line_wall(x, i, 0x00FF0000);
+	print_line_wall(i, x);
 }
 
-void	print_line_wall(int x, t_info *i, int color)
+void	print_line_wall(t_info *i, int x)
 {
 	int y;
-
+	
 	y = i->pla.draw_start;
+	text_increaser(i, 0);
 	while (y <= i->pla.draw_end)
 	{
-		my_mlx_pixel_put(&i->st_img, x, y, color);
+		text_increaser(i, 1);
+		if(find_wall(i) == 'N')
+		{
+			put_pixel_image(i, i->text.text_N, x, y);
+		}
+		if(find_wall(i) == 'S')
+		{
+			put_pixel_image(i, i->text.text_S, x, y);
+		}
+		if(find_wall(i) == 'E')
+		{
+			put_pixel_image(i, i->text.text_E, x, y);
+		}
+		if(find_wall(i) == 'W')
+		{
+			put_pixel_image(i, i->text.text_W, x, y);
+		}
 		y++;
 	}
+}
+
+void	put_pixel_image(t_info *i, t_data *data, int x, int y)
+{
+	// char *dst;
+
+	get_color(data, i->text.texX, i->text.texY);
+	my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)data->color);
+	// dst = i->st_img.addr + (y * i->st_img.line_length + x * (i->st_img.bppixel/ 8));
+	// *(unsigned int *) dst = (int)data->color;
+}
+
+void	text_increaser(t_info *i, int boucle)
+{
+	if(boucle == 0)
+	{
+		i->text.step = 1.0 * TEXT_SIZE / i->pla.line_h;
+		i->text.textpos = (i->pla.draw_start - HEIGHT / 2 + i->pla.line_h / 2) * i->text.step;
+	}
+	else
+	{
+		i->text.texY = (int)i->text.textpos & (TEXT_SIZE - 1);
+		i->text.texY += 1;
+		i->text.textpos += i->text.step;
+	}
+}
+
+char	find_wall(t_info *i)
+{
+	if (i->pla.side && i->pla.step_y < 0 && i->pla.hit)
+		return ('N');
+	else if (i->pla.side && i->pla.step_y > 0 && i->pla.hit)
+		return ('S');
+	else if (!i->pla.side && i->pla.step_x > 0 && i->pla.hit)
+		return ('E');
+	else if (!i->pla.side && i->pla.step_x < 0 && i->pla.hit)
+		return ('W');
+	else
+		return ('P');
 }
 
 // void	print_line_wall(int x, t_info *i, int color)
@@ -166,7 +222,6 @@ void	dda(t_info *i)
 		// printf("boucle dda\n");
 		if (i->pla.side_disX < i->pla.side_disY)
 		{
-			// printf("side X < side Y\n");
 			i->pla.side_disX += i->pla.delta_X;
 			i->pla.mapX += i->pla.step_x;
 			i->pla.side = 0;
@@ -189,21 +244,6 @@ void	dda(t_info *i)
 	}
 	// printf("end dda\n");
 }
-
-
-// 	i->text.text_N = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/acacia_leaves_opaque.xpm", &x, &y);
-// 	i->text.text_N->addr = mlx_get_data_addr(&i->text.text_N->img,
-// 			&i->text.text_N->bppixel, &i->text.text_N->line_length, &i->text.text_N->endian);
-// 	i->text.text_S = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/jungle_leaves_opaque.xpm", &x, &y);
-// 	i->text.text_S->addr = mlx_get_data_addr(&i->text.text_S->img,
-// 			&i->text.text_S->bppixel, &i->text.text_S->line_length, &i->text.text_S->endian);
-// 	i->text.text_W = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/grass_block.xpm", &x, &y);
-// 	i->text.text_W->addr = mlx_get_data_addr(&i->text.text_W->img,
-// 			&i->text.text_W->bppixel, &i->text.text_W->line_length, &i->text.text_W->endian);
-// 	i->text.text_E = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/jungle_log_top.xpm", &x, &y);
-// 	i->text.text_E->addr = mlx_get_data_addr(&i->text.text_E->img,
-// 			&i->text.text_E->bppixel, &i->text.text_E->line_length, &i->text.text_E->endian);
-// }
 
 int	keyevent(int keyword, t_info *i)
 {
@@ -358,14 +398,6 @@ int	main(int argc, char **argv)
 			&i.st_img.bppixel, &i.st_img.line_length, &i.st_img.endian);
 	i.i_map.name_fichier = argv[1];
 	parsing_v2(&i, argv[1]);
-	printf("PlaneX %f\n", i.pla.planeX);
-	printf("PlaneY %f\n", i.pla.planeY);
-	printf("time %f\n", i.pla.time);
-	printf("time %f\n", i.pla.oldtime);
-	printf("X %f\n", i.pla.pl_x);
-	printf("Y %f\n", i.pla.pl_y);
-	printf("dirX %f\n", i.pla.dirX);
-	printf("dirY %f\n", i.pla.dirY);
 	printf("before render\n");
 	printf("planex = %f, planeY = %f, dirX = %f, dirY = %f\n", i.pla.planeX, i.pla.planeY, i.pla.dirX, i.pla.dirY);
 

@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 19:07:47 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/05 17:37:21 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/18 23:05:04 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	}
 }
 
-// void	print_global(t_info i)
-// {
-// 	printf("camera = %i\n", i.pla.cameraX);
-	
-// }
+void	get_color(t_data *data, int x, int y)
+{
+
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		data->color = data->addr + (y * data->line_length + x * (data->bppixel / 8));
+	}
+}

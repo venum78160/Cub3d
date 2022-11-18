@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/18 16:42:46 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/18 22:24:53 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_data {
 	int		bppixel;
 	int		line_length;
 	int		endian;
+	char	*color;
 }	t_data;
 
 typedef struct s_texture
@@ -67,6 +68,9 @@ typedef struct s_texture
 	t_data	*text_W;
 	double	wallx;
 	int		texX;
+	int		texY;
+	double	step;
+	double	textpos;
 	int		color;
 }	t_text;
 
@@ -114,13 +118,17 @@ typedef struct s_info {
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	print_text(t_info *i, int x);
 int		render(t_info *i);
-void	print_line_wall(int x, t_info *i, int color);
+void	print_line_wall(t_info *i, int x);
 void	init_ray(t_info *i, int x);
 void	step(t_info *i);
 void	dda(t_info *i);
 void 	parsing(t_info *i);
 int		keyevent(int keyword, t_info *i);
 int		ft_quit(t_info *i);
+void	get_color(t_data *data, int x, int y);
+char	find_wall(t_info *i);
+void	put_pixel_image(t_info *i, t_data *data, int x, int y);
+void	text_increaser(t_info *i, int boucle);
 
 /* *************************** PARSING *********************** */
 
