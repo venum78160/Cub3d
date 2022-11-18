@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:23:52 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/18 16:48:08 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/18 17:36:06 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,33 @@ int handle_path(char *line, int type, t_info *info)
 	check_extension(path, ".xpm");
 	close(ft_open(path));
 	if (type == 0)
-		info->text.text_N = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
+	{
+		info->text.text_N = ft_calloc(sizeof(t_data), 1);
+		info->text.text_N->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
+		info->text.text_N->addr = mlx_get_data_addr(info->text.text_N->img, &info->text.text_N->bppixel,
+			&info->text.text_N->line_length, &info->text.text_N->endian);
+	}
 	if (type == 1)
-		info->text.text_S = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
+	{
+		info->text.text_S = ft_calloc(sizeof(t_data), 1);
+		info->text.text_S->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
+		info->text.text_S->addr = mlx_get_data_addr(info->text.text_S->img, &info->text.text_S->bppixel,
+			&info->text.text_S->line_length, &info->text.text_S->endian);
+	}
 	if (type == 2)
-		info->text.text_W = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
+	{
+		info->text.text_W = ft_calloc(sizeof(t_data), 1);
+		info->text.text_W->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
+		info->text.text_W->addr = mlx_get_data_addr(info->text.text_W->img, &info->text.text_W->bppixel,
+			&info->text.text_W->line_length, &info->text.text_W->endian);
+	}
 	if (type == 3)
-		info->text.text_E = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
+	{
+		info->text.text_E = ft_calloc(sizeof(t_data), 1);
+		info->text.text_E->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
+		info->text.text_E->addr = mlx_get_data_addr(info->text.text_E->img, &info->text.text_E->bppixel,
+			&info->text.text_E->line_length, &info->text.text_E->endian);
+	}
 	return (1);
 }
 
