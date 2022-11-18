@@ -4,8 +4,8 @@ WE ./texture/jungle/grass_block.xpm
 EA ./texture/jungle/jungle_log_top.xpm
 
 
-F 220,0,0
-C 0,255,0
+F 206,206,206
+C 119,181,254
 
  11111111111111111111111
 1100000011110000000000E1

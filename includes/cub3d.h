@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/18 15:32:17 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/18 16:42:46 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ typedef struct s_map
 }	t_map;
 
 typedef struct s_data {
-	void	*mlx;
-	void	*mlx_win;
 	void	*img;
 	char	*addr;
 	int		bppixel;
@@ -108,6 +106,8 @@ typedef struct s_info {
 	char			**map;
 	unsigned int	floor_c;
 	unsigned int	ceiling_c;
+	void	*mlx;
+	void	*mlx_win;
 }	t_info;
 
 

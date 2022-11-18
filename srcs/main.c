@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/18 15:33:24 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/18 16:45:52 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_quit(t_info *i)
 {
-	mlx_destroy_window(i->st_img.mlx, i->st_img.mlx_win);
+	mlx_destroy_window(i->mlx, i->mlx_win);
 	// ft_del_maps (i, "exit");
 	exit(1);
 	return (EXIT_SUCCESS);
@@ -37,7 +37,7 @@ void	backgroud(t_info *i)
 				my_mlx_pixel_put(&i->st_img, x, y, i->floor_c);
 		}
 	}
-	mlx_put_image_to_window(i->st_img.mlx, i->st_img.mlx_win, i->st_img.img, 0, 0);
+	mlx_put_image_to_window(i->mlx, i->mlx_win, i->st_img.img, 0, 0);
 }
 int	render(t_info *i)
 {
@@ -50,7 +50,7 @@ int	render(t_info *i)
 		init_ray(i, x);
 		print_text(i, x);
 	}
-	mlx_put_image_to_window(i->st_img.mlx, i->st_img.mlx_win, i->st_img.img, 0, 0);
+	mlx_put_image_to_window(i->mlx, i->mlx_win, i->st_img.img, 0, 0);
 	// printf("end render\n");
 	// i->color += 1;
 	return (1);
@@ -190,169 +190,20 @@ void	dda(t_info *i)
 	// printf("end dda\n");
 }
 
-void	print_map(char **map)
-{
-	int	i;
 
-	i = 0;
-	while(map[i])
-	{
-		printf("%s\n", map[i]);
-		i++;
-	}
-}
-
-void parsing(t_info *i)
-{
-	char **result;
-	int j;
-	int x;
-	int y;
-
-	result = ft_calloc(sizeof(char *), 9);
-	result[0] = ft_strdup("11111111111111111111111");
-	result[1] = ft_strdup("10000000111100000000001");
-	result[2] = ft_strdup("10000000000000000000001");
-	result[3] = ft_strdup("11N00000000000000000001");
-	result[4] = ft_strdup("10000000000000000000001");
-	result[5] = ft_strdup("10000000111100000000001");
-	result[6] = ft_strdup("10000000111100000000001");
-	result[7] = ft_strdup("11111111111111111111111");
-	i->map = result;
-	j = 0;
-	i->pla.pl_x = 2.5;
-	i->pla.pl_y = 3.5;
-	// i->pla.dirX = -1;
-	// i->pla.dirY = 0; //initial direction vector
-	// i->pla.planeX = 0;
-	// i->pla.planeY = FOVY; //the 2d raycaster version of camera plane
-	
-	// -1, 0;
-
-	i->pla.dirX = 0;
-	i->pla.dirY = 1; //initial direction vector
-	i->pla.planeX = 0;
-	i->pla.planeY = FOVY; //the 2d raycaster version of camera plane
-	
-  	i->pla.time = 0; //time of current frame
-  	i->pla.oldtime = 0; //time of previous frame
-	// i->floor_c = 206206206;
-	i->floor_c = 00250230215;
-	i->ceiling_c = 119181254;
-	i->text.text_N = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/acacia_leaves_opaque.xpm", &x, &y);
-	i->text.text_S = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/jungle_leaves_opaque.xpm", &x, &y);
-	i->text.text_W = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/grass_block.xpm", &x, &y);
-	i->text.text_E = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/jungle_log_top.xpm", &x, &y);
-
-// 	if(N)
-// 		{
-// 			i->pla.planeX = 0;
-// 			i->pla.planeY = FOVY
-// 		}
-// 	else if (S)
-// 	{
-// 		i->pla.planeX = 0;
-// 		i->pla.planeY = -1 * FOVY
-// 	}
-// 	else if (E)
-// 	{
-// 		i->pla.planeX = FOVY;
-// 		i->pla.planeY = 0;
-// 	}
-// 	else
-// 	{
-// 		i->pla.planeX = -1 * FOVY;
-// 		i->pla.planeY = 0;	
-// 	}
-
-// {
-	char c = 'W';
-	if (c == 'N')
-	{
-		printf("NORD\n");
-		i->pla.dirX = -1;
-		i->pla.dirY = 0;
-		i->pla.planeX = 0;
-		i->pla.planeY = FOVY;
-	}
-	else if (c == 'S')
-	{
-		printf("SUD\n");
-		i->pla.dirX = 1;
-		i->pla.dirY = 0;
-		i->pla.planeX = 0;
-		i->pla.planeY = FOVY * -1;
-	}
-	else if (c == 'E')
-	{
-		printf("EST\n");
-		i->pla.dirX = 0;
-		i->pla.dirY = 1;
-		i->pla.planeX = FOVY;
-		i->pla.planeY = 0;
-	}
-	else
-	{
-		printf("WOUEST\n");
-		i->pla.dirX = 0;
-		i->pla.dirY = -1;
-		i->pla.planeX = FOVY * -1;
-		i->pla.planeY = 0;
-	}
-
-// 	int try_set_spawn_point(char c, t_info *infos)
-// {
-//     if (c == 'N')
-//     {
-//         infos->pla.dirX = 0;
-//         infos->pla.dirY = -1;
-//         infos->pla.planeX = 0;
-//         infos->pla.planeY = FOVY;
-//         return (1);
-//     }
-//     if (c == 'S')
-//     {
-//         infos->pla.dirX = 0;
-//         infos->pla.dirY = 1;
-//         infos->pla.planeX = 0;
-//         infos->pla.planeY = -1 * FOVY;
-//         return (1);
-//     }
-//     if (c == 'E')
-//     {
-//         infos->pla.dirX = 1;
-//         infos->pla.dirY = 0;
-//         infos->pla.planeX = FOVY;
-//         infos->pla.planeY = 0;
-//         return (1);
-//     }
-//     if (c == 'W')
-//     {
-//         infos->pla.dirX = -1;
-//         infos->pla.dirY = 0;
-//         infos->pla.planeX = -1 * FOVY;
-//         infos->pla.planeY = 0;
-//         return (1); 
-//     }
-//     return (0);
+// 	i->text.text_N = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/acacia_leaves_opaque.xpm", &x, &y);
+// 	i->text.text_N->addr = mlx_get_data_addr(&i->text.text_N->img,
+// 			&i->text.text_N->bppixel, &i->text.text_N->line_length, &i->text.text_N->endian);
+// 	i->text.text_S = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/jungle_leaves_opaque.xpm", &x, &y);
+// 	i->text.text_S->addr = mlx_get_data_addr(&i->text.text_S->img,
+// 			&i->text.text_S->bppixel, &i->text.text_S->line_length, &i->text.text_S->endian);
+// 	i->text.text_W = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/grass_block.xpm", &x, &y);
+// 	i->text.text_W->addr = mlx_get_data_addr(&i->text.text_W->img,
+// 			&i->text.text_W->bppixel, &i->text.text_W->line_length, &i->text.text_W->endian);
+// 	i->text.text_E = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/jungle_log_top.xpm", &x, &y);
+// 	i->text.text_E->addr = mlx_get_data_addr(&i->text.text_E->img,
+// 			&i->text.text_E->bppixel, &i->text.text_E->line_length, &i->text.text_E->endian);
 // }
-
-
-
-
-	// i->text.text_N = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/acacia_leaves_opaque.xpm", &x, &y);
-	// i->text.text_N->addr = mlx_get_data_addr(&i->text.text_N->img,
-	// 		&i->text.text_N->bppixel, &i->text.text_N->line_length, &i->text.text_N->endian);
-	// i->text.text_S = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/jungle_leaves_opaque.xpm", &x, &y);
-	// i->text.text_S->addr = mlx_get_data_addr(&i->text.text_S->img,
-	// 		&i->text.text_S->bppixel, &i->text.text_S->line_length, &i->text.text_S->endian);
-	// i->text.text_W = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/grass_block.xpm", &x, &y);
-	// i->text.text_W->addr = mlx_get_data_addr(&i->text.text_W->img,
-	// 		&i->text.text_W->bppixel, &i->text.text_W->line_length, &i->text.text_W->endian);
-	// i->text.text_E = mlx_xpm_file_to_image(i->st_img.mlx , "./textures/jungle/jungle_log_top.xpm", &x, &y);
-	// i->text.text_E->addr = mlx_get_data_addr(&i->text.text_E->img,
-	// 		&i->text.text_E->bppixel, &i->text.text_E->line_length, &i->text.text_E->endian);
-}
 
 int	keyevent(int keyword, t_info *i)
 {
@@ -472,15 +323,14 @@ int	main(int argc, char **argv)
 	
 	if(argc != 2)
 		msg_exit("Error: please use a correct format.\n");
-	i.st_img.mlx = mlx_init();
-	i.st_img.mlx_win = mlx_new_window(i.st_img.mlx, WIDTH, HEIGHT, "CUB_3D");
-	i.st_img.img = mlx_new_image(i.st_img.mlx, WIDTH, HEIGHT);
+	i.mlx = mlx_init();
+	i.mlx_win = mlx_new_window(i.mlx, WIDTH, HEIGHT, "CUB_3D");
+	i.st_img.img = mlx_new_image(i.mlx, WIDTH, HEIGHT);
 	i.st_img.addr = mlx_get_data_addr(i.st_img.img,
 			&i.st_img.bppixel, &i.st_img.line_length, &i.st_img.endian);
 	i.i_map.name_fichier = argv[1];
 	//parsing(&i);
 	parsing_v2(&i, argv[1]);
-	print_map(i.map);
 	printf("PlaneX %f\n", i.pla.planeX);
 	printf("PlaneY %f\n", i.pla.planeY);
 	printf("time %f\n", i.pla.time);
@@ -491,8 +341,8 @@ int	main(int argc, char **argv)
 	printf("dirY %f\n", i.pla.dirY);
 	printf("before render\n");
 	printf("planex = %f, planeY = %f, dirX = %f, dirY = %f\n", i.pla.planeX, i.pla.planeY, i.pla.dirX, i.pla.dirY);
-	mlx_loop_hook(i.st_img.mlx, render, &i);
-	mlx_hook(i.st_img.mlx_win, 2, 1L<<0, keyevent, &i);
-	mlx_hook(i.st_img.mlx_win, 6, 0L, mouse_moove, &i);
-	mlx_loop(i.st_img.mlx);
+	mlx_loop_hook(i.mlx, render, &i);
+	mlx_hook(i.mlx_win, 2, 1L<<0, keyevent, &i);
+	mlx_hook(i.mlx_win, 6, 0L, mouse_moove, &i);
+	mlx_loop(i.mlx);
 }

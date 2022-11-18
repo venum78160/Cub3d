@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:23:52 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/18 15:20:53 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/18 16:48:08 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,13 @@ int handle_path(char *line, int type, t_info *info)
 	check_extension(path, ".xpm");
 	close(ft_open(path));
 	if (type == 0)
-		info->text.text_N = mlx_xpm_file_to_image(info->st_img.mlx , path, &x, &y);
+		info->text.text_N = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
 	if (type == 1)
-		info->text.text_S = mlx_xpm_file_to_image(info->st_img.mlx , path, &x, &y);
+		info->text.text_S = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
 	if (type == 2)
-		info->text.text_W = mlx_xpm_file_to_image(info->st_img.mlx , path, &x, &y);
+		info->text.text_W = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
 	if (type == 3)
-		info->text.text_E = mlx_xpm_file_to_image(info->st_img.mlx , path, &x, &y);
+		info->text.text_E = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
 	return (1);
 }
 

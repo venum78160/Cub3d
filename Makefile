@@ -17,6 +17,8 @@ HEADER = -I./includes -I./libft -I./minilibx
 
 LIB		=	libft.a
 
+MINILBX		=	minilibx
+
 MLX	=	-lft -lmlx -framework OpenGL -framework AppKit
 
 SRCS = srcs/main.c \
@@ -41,18 +43,20 @@ all: ${NAME}
 	@$(CC) $(CFLAGS) $(HEADER) -c $< -o $(<:.c=.o)
 	
 ${NAME}: ${OBJS}
-		@make -C Libft
 		@make bonus -C Libft
 		@printf $(GREEN)"\r\033[K✅ SUCCESS: "$(WHITE)$(LIB)$(GREEN)" has been created\n"$(RESET)
 		@make -C ./minilibx 2>/dev/null
+		@printf $(GREEN)"\r\033[K✅ SUCCESS: "$(WHITE)$(MINILBX)$(GREEN)" has been created\n"$(RESET)
 		@$(CC) $(CFLAGS) $(HEADER) -o $(NAME) $(SRCS) -lm -L ./libft -lft -lmlx -framework OpenGL -framework AppKit -L ./minilibx
 		@printf $(GREEN)"\r\033[K✅ SUCCESS: "$(WHITE)$(FRONTNAME)$(GREEN)" has been created\n"$(RESET)
 
 clean :
 		@${RM} ${OBJS} $(LIB)
 		@make clean -C Libft
-		@printf $(RED)"\r\033[K➜ ["$(FRONTNAME)"] "$(WHITE)"clean"$(RED)" has been done\n"$(RESET)
 		@printf $(RED)"\r\033[K➜ [LIB] library folder has been "$(WHITE)"removed"$(RED)"\n"$(RESET)
+		@make clean -C ./minilibx
+		@printf $(RED)"\r\033[K➜ [MINILIBX] library folder has been "$(WHITE)"removed"$(RED)"\n"$(RESET)
+		@printf $(RED)"\r\033[K➜ ["$(FRONTNAME)"] "$(WHITE)"clean"$(RED)" has been done\n"$(RESET)
 
 fclean: clean
 		@printf $(GREEN)"\r\033[K🗑️  Deleted: "$(WHITE)$(FRONTNAME)$(RED)" has been deleted\n"$(RESET)
