@@ -6,21 +6,11 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:41:41 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/10 20:32:10 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/15 18:39:55 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
-
-int ft_strlen(char *src)
-{
-	int i;
-
-	i = 0;
-	while (src[i])
-		i++;
-	return (i);
-}
+#include "../includes/cub3d.h"
 
 int	get_extension_len(char *src)
 {
@@ -34,7 +24,7 @@ int	get_extension_len(char *src)
 	return (len - ext_len);
 }
 
-int get_extension(char *src)
+char *get_extension(char *src)
 {
 	int		len;
 	int		ext_len;
@@ -43,7 +33,7 @@ int get_extension(char *src)
 
 	len = ft_strlen(src) - 1;
 	ext_len = get_extension_len(src);
-	res = ft_calloc(ext_len, 1);
+	res = ft_calloc(ext_len + 1, 1);
 	i = 0;
 	while(src[len - ext_len])
 	{
@@ -51,5 +41,6 @@ int get_extension(char *src)
 		i++;
 		ext_len--;
 	}
+	res[i] = '\0';
 	return (res);
 }

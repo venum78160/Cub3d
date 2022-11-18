@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/10 19:40:41 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/18 14:13:05 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define SPEED_ROT 0.04
 # define ARROW_L 123
 # define ARROW_R 124
+# define SENSIVITY 0.7
 
 
 /* ************************* INCLUDES ************************* */
@@ -120,6 +121,12 @@ int		ft_quit(t_info *i);
 
 void 	parsing_v2(t_info *i, char* src);
 int		ft_open(char *src);
+int		ft_strcmp(const char *s1, const char *s2);
+int		ft_error(char *err, int type);
+char	*ft_gnljoin(char *s1, char *s2);
+char	*get_extension(char *src);
+char	*get_next_line(int fd);
+
 
 /* *************************** INIT ************************** */
 

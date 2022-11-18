@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/08 18:09:38 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/18 15:26:27 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,18 @@ void	dda(t_info *i)
 	// printf("end dda\n");
 }
 
+void	print_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while(map[i])
+	{
+		printf("%s\n", map[i]);
+		i++;
+	}
+}
+
 void parsing(t_info *i)
 {
 	char **result;
@@ -197,8 +209,8 @@ void parsing(t_info *i)
 	j = 0;
 	i->pla.pl_x = 2.5;
 	i->pla.pl_y = 3.5;
-	i->pla.dirX = -1;
-	i->pla.dirY = 0; //initial direction vector
+	i->pla.dirX = 0;
+	i->pla.dirY = 1; //initial direction vector
 	i->pla.planeX = 0;
 	i->pla.planeY = FOVY; //the 2d raycaster version of camera plane
 	
@@ -283,6 +295,47 @@ int	keyevent(int keyword, t_info *i)
 	return (0);
 }
 
+void	right_turn(t_info *i)
+{
+	double oldDirX;
+
+	oldDirX = i->pla.dirX;
+	i->pla.dirX = i->pla.dirX * cos(-SENSIVITY * SPEED_ROT) - i->pla.dirY * sin(-SENSIVITY * SPEED_ROT);
+	i->pla.dirY = oldDirX * sin(-SENSIVITY * SPEED_ROT) + i->pla.dirY * cos(-SENSIVITY * SPEED_ROT);
+	double oldPlaneX;
+	oldPlaneX = i->pla.planeX;
+	i->pla.planeX = i->pla.planeX * cos(-SENSIVITY * SPEED_ROT) - i->pla.planeY * sin(-SENSIVITY * SPEED_ROT);
+	i->pla.planeY = oldPlaneX * sin(-SENSIVITY * SPEED_ROT) + i->pla.planeY * cos(-SENSIVITY * SPEED_ROT);
+}
+
+void	left_turn(t_info *i)
+{
+	double oldDirX;
+
+	oldDirX = i->pla.dirX;
+	i->pla.dirX = i->pla.dirX * cos(SENSIVITY * SPEED_ROT) - i->pla.dirY * sin(SENSIVITY * SPEED_ROT);
+	i->pla.dirY = oldDirX * sin(SENSIVITY * SPEED_ROT) + i->pla.dirY * cos(SENSIVITY * SPEED_ROT);
+	double oldPlaneX;
+	oldPlaneX = i->pla.planeX;
+	i->pla.planeX = i->pla.planeX * cos(SENSIVITY * SPEED_ROT) - i->pla.planeY * sin(SENSIVITY * SPEED_ROT);
+	i->pla.planeY = oldPlaneX * sin(SENSIVITY * SPEED_ROT) + i->pla.planeY * cos(SENSIVITY * SPEED_ROT);
+}
+
+int	mouse_moove(int x, int y, t_info *i)
+{
+	static int last_x;
+
+	if (!last_x)
+		last_x = WIDTH / 2;
+	if (x > last_x)
+		right_turn(i);
+	if (x < last_x)
+		left_turn(i);
+	last_x = x;
+	(void)y;
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_info	i;
@@ -295,9 +348,20 @@ int	main(int argc, char **argv)
 	i.st_img.addr = mlx_get_data_addr(i.st_img.img,
 			&i.st_img.bppixel, &i.st_img.line_length, &i.st_img.endian);
 	i.i_map.name_fichier = argv[1];
-	parsing(&i);
+	//parsing(&i);
+	parsing_v2(&i, argv[1]);
+	print_map(i.map);
+	printf("PlaneX %f\n", i.pla.planeX);
+	printf("PlaneY %f\n", i.pla.planeY);
+	printf("time %f\n", i.pla.time);
+	printf("time %f\n", i.pla.oldtime);
+	printf("X %f\n", i.pla.pl_x);
+	printf("Y %f\n", i.pla.pl_y);
+	printf("dirX %f\n", i.pla.dirX);
+	printf("dirY %f\n", i.pla.dirY);
 	printf("before render\n");
 	mlx_loop_hook(i.st_img.mlx, render, &i);
 	mlx_hook(i.st_img.mlx_win, 2, 1L<<0, keyevent, &i);
+	mlx_hook(i.st_img.mlx_win, 6, 0L, mouse_moove, &i);
 	mlx_loop(i.st_img.mlx);
 }

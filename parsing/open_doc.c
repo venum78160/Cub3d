@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:31:20 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/10 19:40:00 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/18 15:26:52 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int ft_open(char *src)
 	if (fd > 0)
 	{
 		printf("%s is a directory\n", src);
-		exit ();
+		exit(0);
 	}
-	fd = open(src, O_WRONLY | O_CREAT, 0644);
+	fd = open(src, O_RDONLY, 0644);
 	if (fd == -1)
 	{
 		printf("%s: No such file or directory\n", src);
-        exit ();
+        exit(0);
 	}
     return (fd);
 }
