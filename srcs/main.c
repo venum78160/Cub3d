@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/18 23:26:39 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/20 16:07:18 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,18 +99,22 @@ void	print_line_wall(t_info *i, int x)
 		if(find_wall(i) == 'N')
 		{
 			put_pixel_image(i, i->text.text_N, x, y);
+			// my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)0x00FF0000);
 		}
 		if(find_wall(i) == 'S')
 		{
 			put_pixel_image(i, i->text.text_S, x, y);
+			// my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)0x0000FF00);
 		}
 		if(find_wall(i) == 'E')
 		{
 			put_pixel_image(i, i->text.text_E, x, y);
+			// my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)0x000000FF);
 		}
 		if(find_wall(i) == 'W')
 		{
 			put_pixel_image(i, i->text.text_W, x, y);
+			// my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)0x00AA00AA);
 		}
 		y++;
 	}
@@ -121,7 +125,7 @@ void	put_pixel_image(t_info *i, t_data *data, int x, int y)
 	// char *dst;
 
 	get_color(data, i->text.texX, i->text.texY);
-	my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)data->color);
+	my_mlx_pixel_put(&i->st_img, x, y, *(int *)data->color);
 	// dst = i->st_img.addr + (y * i->st_img.line_length + x * (i->st_img.bppixel/ 8));
 	// *(unsigned int *) dst = (int)data->color;
 }
