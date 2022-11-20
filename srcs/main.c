@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/20 17:14:19 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/20 21:11:48 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	ft_quit(t_info *i)
 {
 	mlx_destroy_window(i->mlx, i->mlx_win);
-	// ft_del_maps (i, "exit");
 	exit(1);
 	return (EXIT_SUCCESS);
 }
@@ -58,14 +57,11 @@ int	render(t_info *i)
 
 void	print_text(t_info *i, int x)
 {
-	// printf("print text\n");
 	if (!i->pla.side)
 		i->pla.dist_wall = i->pla.side_disX - i->pla.delta_X;
 	else
 		i->pla.dist_wall = i->pla.side_disY - i->pla.delta_Y;
 	i->pla.line_h = (int)(HEIGHT / i->pla.dist_wall);
-	// int t = HEIGHT;
-	// printf("line h = %i, HEIGHT = %i, dist_wall %f\n", i->pla.line_h, t, i->pla.dist_wall);
 	i->pla.draw_start = -1 * i->pla.line_h / 2.0 + HEIGHT / 2.0 + 1;
 	if (i->pla.draw_start < 0)
 		i->pla.draw_start = 0;
@@ -73,16 +69,15 @@ void	print_text(t_info *i, int x)
 	if (i->pla.draw_end >= HEIGHT)
 		i->pla.draw_end = HEIGHT + 1;
 	if (i->pla.side)
-		i->text.wallx = i->pla.pl_y + i->pla.dist_wall * i->pla.rayDirY;
-	else
 		i->text.wallx = i->pla.pl_x + i->pla.dist_wall * i->pla.rayDirX;
+	else
+		i->text.wallx = i->pla.pl_y + i->pla.dist_wall * i->pla.rayDirY;
 	i->text.wallx -= floor(i->text.wallx);
 	i->text.texX = (int)(i->text.wallx * (double)TEXT_SIZE);
 	if (!i->pla.side && i->pla.rayDirX > 0)
 		i->text.texX = TEXT_SIZE - i->text.texX;
 	if (i->pla.side && i->pla.rayDirY < 0)
 		i->text.texX = TEXT_SIZE - i->text.texX;
-	// print_line_wall(x, i, 0x00AA00AA);
 	print_line_wall(i, x);
 }
 
@@ -96,37 +91,21 @@ void	print_line_wall(t_info *i, int x)
 	{
 		text_increaser(i, 1);
 		if(find_wall(i) == 'N')
-		{
-			// put_pixel_image(i, i->text.text_N, x, y);
-			my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)0x00FF0000);
-		}
+			put_pixel_image(i, i->text.text_N, x, y);
 		if(find_wall(i) == 'S')
-		{
-			// put_pixel_image(i, i->text.text_S, x, y);
-			my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)0x0000FF00);
-		}
+			put_pixel_image(i, i->text.text_S, x, y);
 		if(find_wall(i) == 'E')
-		{
-			// put_pixel_image(i, i->text.text_E, x, y);
-			my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)0x000000FF);
-		}
+			put_pixel_image(i, i->text.text_E, x, y);
 		if(find_wall(i) == 'W')
-		{
-			// put_pixel_image(i, i->text.text_W, x, y);
-			my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)0x00AA00AA);
-		}
+			put_pixel_image(i, i->text.text_W, x, y);
 		y++;
 	}
 }
 
 void	put_pixel_image(t_info *i, t_data *data, int x, int y)
 {
-	// char *dst;
-
 	get_color(data, i->text.texX, i->text.texY);
 	my_mlx_pixel_put(&i->st_img, x, y, *(int *)data->color);
-	// dst = i->st_img.addr + (y * i->st_img.line_length + x * (i->st_img.bppixel/ 8));
-	// *(unsigned int *) dst = (int)data->color;
 }
 
 void	text_increaser(t_info *i, int boucle)
@@ -160,7 +139,6 @@ char	find_wall(t_info *i)
 
 void	init_ray(t_info *i, int x)
 {
-	// printf("begin init ray\n");
 	i->pla.cameraX = 2 * x / (double)(WIDTH)-1;
 	i->pla.rayDirX = i->pla.dirX + i->pla.planeX * i->pla.cameraX;
 	i->pla.rayDirY = i->pla.dirY + i->pla.planeY * i->pla.cameraX;
@@ -177,12 +155,10 @@ void	init_ray(t_info *i, int x)
 	i->pla.hit = 0;
 	step(i);
 	dda(i);
-	// printf("end init ray\n");
 }
 
 void	step(t_info *i)
 {
-	// printf("begin step\n");
 	if (i->pla.rayDirX < 0)
 	{
 		i->pla.step_x = -1;
@@ -207,10 +183,8 @@ void	step(t_info *i)
 
 void	dda(t_info *i)
 {
-	// printf("begin dda\n");
 	while (i->pla.hit == 0)
 	{
-		// printf("boucle dda\n");
 		if (i->pla.side_disX < i->pla.side_disY)
 		{
 			i->pla.side_disX += i->pla.delta_X;
@@ -219,28 +193,17 @@ void	dda(t_info *i)
 		}
 		else
 		{
-			// printf("side Y\n");
-			// printf("%i,%i\n", i->pla.mapY, i->pla.mapX);
 			i->pla.side_disY += i->pla.delta_Y;
 			i->pla.mapY += i->pla.step_y;
 			i->pla.side = 1;
 		}
-		// printf("%i,%i\n", i->pla.mapY, i->pla.mapX);
 		if (i->map[i->pla.mapX][i->pla.mapY] == '1')
-		{
-			// printf("hit %i%i\n\n", i->pla.mapY, i->pla.mapX);
-			// printf("hit 1\n");
 			i->pla.hit = 1;
-		}
 	}
-	// printf("end dda\n");
 }
 
 int	keyevent(int keyword, t_info *i)
 {
-	printf("key = %i\n", keyword);
-	printf("pose jouer y[%f]x[%f]\n", i->pla.pl_y, i->pla.pl_x);
-	printf("drawn start[%i]drawn end[%i]\n", i->pla.draw_start, i->pla.draw_end);
 	if(keyword == UP)
 	{
 		if (i->map[(int)(i->pla.pl_x + i->pla.dirX * SPEED)]
