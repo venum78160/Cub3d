@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/20 16:07:18 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/20 17:14:19 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	print_text(t_info *i, int x)
 	i->pla.draw_end = i->pla.line_h / 2.0 + HEIGHT / 2.0;
 	if (i->pla.draw_end >= HEIGHT)
 		i->pla.draw_end = HEIGHT + 1;
-
 	if (i->pla.side)
 		i->text.wallx = i->pla.pl_y + i->pla.dist_wall * i->pla.rayDirY;
 	else
@@ -80,9 +79,9 @@ void	print_text(t_info *i, int x)
 	i->text.wallx -= floor(i->text.wallx);
 	i->text.texX = (int)(i->text.wallx * (double)TEXT_SIZE);
 	if (!i->pla.side && i->pla.rayDirX > 0)
-		i->text.texX = TEXT_SIZE - i->text.texX -1;
+		i->text.texX = TEXT_SIZE - i->text.texX;
 	if (i->pla.side && i->pla.rayDirY < 0)
-		i->text.texX = TEXT_SIZE - i->text.texX -1;
+		i->text.texX = TEXT_SIZE - i->text.texX;
 	// print_line_wall(x, i, 0x00AA00AA);
 	print_line_wall(i, x);
 }
@@ -98,23 +97,23 @@ void	print_line_wall(t_info *i, int x)
 		text_increaser(i, 1);
 		if(find_wall(i) == 'N')
 		{
-			put_pixel_image(i, i->text.text_N, x, y);
-			// my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)0x00FF0000);
+			// put_pixel_image(i, i->text.text_N, x, y);
+			my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)0x00FF0000);
 		}
 		if(find_wall(i) == 'S')
 		{
-			put_pixel_image(i, i->text.text_S, x, y);
-			// my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)0x0000FF00);
+			// put_pixel_image(i, i->text.text_S, x, y);
+			my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)0x0000FF00);
 		}
 		if(find_wall(i) == 'E')
 		{
-			put_pixel_image(i, i->text.text_E, x, y);
-			// my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)0x000000FF);
+			// put_pixel_image(i, i->text.text_E, x, y);
+			my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)0x000000FF);
 		}
 		if(find_wall(i) == 'W')
 		{
-			put_pixel_image(i, i->text.text_W, x, y);
-			// my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)0x00AA00AA);
+			// put_pixel_image(i, i->text.text_W, x, y);
+			my_mlx_pixel_put(&i->st_img, x, y, (unsigned int)0x00AA00AA);
 		}
 		y++;
 	}
@@ -135,7 +134,7 @@ void	text_increaser(t_info *i, int boucle)
 	if(boucle == 0)
 	{
 		i->text.step = 1.0 * TEXT_SIZE / i->pla.line_h;
-		i->text.textpos = (i->pla.draw_start - HEIGHT / 2 + i->pla.line_h / 2) * i->text.step;
+		i->text.textpos = (i->pla.draw_start - HEIGHT / 2.0 + i->pla.line_h / 2.0) * i->text.step;
 	}
 	else
 	{
@@ -148,28 +147,16 @@ void	text_increaser(t_info *i, int boucle)
 char	find_wall(t_info *i)
 {
 	if (i->pla.side && i->pla.step_y < 0 && i->pla.hit)
-		return ('N');
-	else if (i->pla.side && i->pla.step_y > 0 && i->pla.hit)
-		return ('S');
-	else if (!i->pla.side && i->pla.step_x > 0 && i->pla.hit)
-		return ('E');
-	else if (!i->pla.side && i->pla.step_x < 0 && i->pla.hit)
 		return ('W');
+	else if (i->pla.side && i->pla.step_y > 0 && i->pla.hit)
+		return ('E');
+	else if (!i->pla.side && i->pla.step_x > 0 && i->pla.hit)
+		return ('S');
+	else if (!i->pla.side && i->pla.step_x < 0 && i->pla.hit)
+		return ('N');
 	else
 		return ('P');
 }
-
-// void	print_line_wall(int x, t_info *i, int color)
-// {
-// 	int y;
-
-// 	y = i->pla.draw_start;
-// 	while (y <= i->pla.draw_end)
-// 	{
-// 		my_mlx_pixel_put(&i->st_img, x, y, color);
-// 		y++;
-// 	}
-// }
 
 void	init_ray(t_info *i, int x)
 {
