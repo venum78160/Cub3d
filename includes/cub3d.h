@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/18 22:24:53 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/20 21:25:08 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,9 @@ void	get_color(t_data *data, int x, int y);
 char	find_wall(t_info *i);
 void	put_pixel_image(t_info *i, t_data *data, int x, int y);
 void	text_increaser(t_info *i, int boucle);
+void	backgroud(t_info *i);
+void	right_turn(t_info *i);
+void	left_turn(t_info *i);
 
 /* *************************** PARSING *********************** */
 
