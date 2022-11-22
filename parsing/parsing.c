@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:23:52 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/22 19:22:12 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/22 19:47:17 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	free_map(char **map)
 	int	i;
 
 	i = 0;
+	if (!map)
+		return (0);
 	while (map[i])
 	{
 		free(map[i]);
@@ -28,10 +30,14 @@ int	free_map(char **map)
 
 int free_texture(t_info *info)
 {
-	free(info->text.text_S);
-	free(info->text.text_N);
-	free(info->text.text_W);
-	free(info->text.text_E);
+	if (info->valid.S)
+		free(info->text.text_S);
+	if (info->valid.N)
+		free(info->text.text_N);
+	if (info->valid.W)
+		free(info->text.text_W);
+	if (info->valid.E)
+		free(info->text.text_E);
 	return (0);
 }
 
@@ -120,6 +126,7 @@ int handle_path(char *line, int type, t_info *info, char *id)
 	close(ft_open(path));
 	if (type == 0)
 	{
+		info->valid.N = 1;
 		info->text.text_N = ft_calloc(sizeof(t_data), 1);
 		info->text.text_N->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
 		info->text.text_N->addr = mlx_get_data_addr(info->text.text_N->img, &info->text.text_N->bppixel,
@@ -127,6 +134,7 @@ int handle_path(char *line, int type, t_info *info, char *id)
 	}
 	if (type == 1)
 	{
+		info->valid.S = 1;
 		info->text.text_S = ft_calloc(sizeof(t_data), 1);
 		info->text.text_S->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
 		info->text.text_S->addr = mlx_get_data_addr(info->text.text_S->img, &info->text.text_S->bppixel,
@@ -134,6 +142,7 @@ int handle_path(char *line, int type, t_info *info, char *id)
 	}
 	if (type == 2)
 	{
+		info->valid.W = 1;
 		info->text.text_W = ft_calloc(sizeof(t_data), 1);
 		info->text.text_W->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
 		info->text.text_W->addr = mlx_get_data_addr(info->text.text_W->img, &info->text.text_W->bppixel,
@@ -141,6 +150,7 @@ int handle_path(char *line, int type, t_info *info, char *id)
 	}
 	if (type == 3)
 	{
+		info->valid.E = 1;
 		info->text.text_E = ft_calloc(sizeof(t_data), 1);
 		info->text.text_E->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
 		info->text.text_E->addr = mlx_get_data_addr(info->text.text_E->img, &info->text.text_E->bppixel,
@@ -216,9 +226,15 @@ int handle_color(char *line, int type, t_info *info, char* id)
 	colors = ft_split(++line, ',');
 	trgb = colors_to_trgb(colors, id);
 	if (type == 0)
+	{
+		info->valid.F = 1;
 		info->floor_c = trgb;
+	}
 	if (type == 1)
+	{
+		info->valid.C = 1;
 		info->ceiling_c = trgb;
+	}
 	free_colors(colors);
 	return (1);
 }
@@ -516,6 +532,7 @@ int	map_parsing(char *line, int fd, t_info *i)
 	char	**map;
 	t_list	**head;
 	
+	i->valid.Map = 1;
 	head = ft_calloc(sizeof(t_list), 1);
 	while(line)
 	{
@@ -530,11 +547,42 @@ int	map_parsing(char *line, int fd, t_info *i)
 	return (1);
 }
 
+void init_valid(t_info *i)
+{
+	i->valid.N = 0;
+	i->valid.S = 0;
+	i->valid.E = 0;
+	i->valid.W = 0;
+	i->valid.C = 0;
+	i->valid.F = 0;
+	i->valid.Map = 0;
+}
+
+int check_valid(t_info *i)
+{
+	if (!(i->valid.N))
+		return (0);
+	if (!(i->valid.S))
+		return (0);
+	if (!(i->valid.E))
+		return (0);
+	if (!(i->valid.W))
+		return (0);
+	if (!(i->valid.F))
+		return (0);
+	if (!(i->valid.C))
+		return (0);
+	if (!(i->valid.Map))
+		return (0);
+	return (1);
+}
+
 void parsing_v2(t_info *i, char *src)
 {
 	int     fd;
 	char    *line;
 	
+	init_valid(i);
 	if (!check_extension(src, ".cub"))
 		ft_error("Error:\nBad file type.", 0);
 	fd = ft_open(src);
@@ -546,4 +594,10 @@ void parsing_v2(t_info *i, char *src)
 		line = get_next_line(fd);
 	}
 	close(fd);
+	if (!check_valid(i))
+	{
+		free_map(i->map);
+		free_texture(i);
+		ft_error("Error:\nMissing arguments in .cub\n", 0);
+	}
 }

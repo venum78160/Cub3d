@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/22 19:07:51 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/22 19:25:03 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,16 @@ typedef struct s_data {
 	char	*color;
 }	t_data;
 
+typedef struct s_valid {
+	int	N;
+	int S;
+	int W;
+	int E;
+	int F;
+	int C;
+	int Map;
+}	t_valid;
+
 typedef struct s_texture
 {
 	t_data	*text_N;
@@ -107,6 +117,7 @@ typedef struct s_pla {
 
 typedef struct s_info {
 	t_data			st_img;
+	t_valid			valid;
 	t_map			i_map;
 	t_pla			pla;
 	t_text			text;
