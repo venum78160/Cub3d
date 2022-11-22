@@ -3,53 +3,108 @@
 /*                                                        :::      ::::::::   */
 /*   key_event.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 21:19:34 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/20 21:23:49 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/22 18:53:02 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
+int	no_hitbox(char c)
+{
+	if (c == '1')
+		return (0);
+	if (c == 'P')
+		return (0);
+	return (1);
+}
+
+char get_invert(int x, int y, t_info *info)
+{
+	if (info->map[x][y] == 'P')
+		return ('O');
+	return ('P');
+}
+
+int action_door(int x, int y, t_info *info)
+{
+	info->map[x][y] = get_invert(x, y, info);
+	return (1);
+}
+
+int is_door(char c)
+{
+	if (c == 'O')
+		return (1);
+	if (c == 'P')
+		return (1);
+	return (0);
+}
+
+void action_door_around(int x, int y, t_info *info)
+{
+	if (is_door(info->map[x + 1][y]))
+		action_door(x + 1, y, info);
+	if (is_door(info->map[x + 1][y + 1]))
+		action_door(x + 1, y + 1, info);
+	if (is_door(info->map[x + 1][y - 1]))
+		action_door(x + 1, y - 1, info);
+	if (is_door(info->map[x][y + 1]))
+		action_door(x, y + 1, info);
+	if (is_door(info->map[x][y - 1]))
+		action_door(x, y - 1, info);
+	if (is_door(info->map[x - 1][y - 1]))
+		action_door(x - 1, y - 1, info);
+	if (is_door(info->map[x - 1][y]))
+		action_door(x - 1, y, info);
+	if (is_door(info->map[x - 1][y + 1]))
+		action_door(x - 1, y + 1, info);
+}
+
 int	keyevent(int keyword, t_info *i)
 {
 	if(keyword == UP)
 	{
-		if (i->map[(int)(i->pla.pl_x + i->pla.dirX * SPEED)]
-			[(int)i->pla.pl_y] != '1')
+		if (no_hitbox(i->map[(int)(i->pla.pl_x + i->pla.dirX * SPEED)]
+			[(int)i->pla.pl_y]))
 			i->pla.pl_x += i->pla.dirX * SPEED;
-		if (i->map[(int)i->pla.pl_x]
-			[(int)(i->pla.pl_y + i->pla.dirY * SPEED)] != '1')
+		if (no_hitbox(i->map[(int)i->pla.pl_x]
+			[(int)(i->pla.pl_y + i->pla.dirY * SPEED)]))
 			i->pla.pl_y += i->pla.dirY * SPEED;
 	}
 	if(keyword == DOWN)
 	{
-		if (i->map[(int)(i->pla.pl_x - i->pla.dirX * SPEED)]
-			[(int)i->pla.pl_y] != '1')
+		if (no_hitbox(i->map[(int)(i->pla.pl_x - i->pla.dirX * SPEED)]
+			[(int)i->pla.pl_y]))
 			i->pla.pl_x -= i->pla.dirX * SPEED;
-		if (i->map[(int)i->pla.pl_x]
-			[(int)(i->pla.pl_y - i->pla.dirY * SPEED)] != '1')
+		if (no_hitbox(i->map[(int)i->pla.pl_x]
+			[(int)(i->pla.pl_y - i->pla.dirY * SPEED)]))
 			i->pla.pl_y -= i->pla.dirY * SPEED;
 	}
 	if(keyword == LEFT)
 	{
 
-		if (i->map[(int)(i->pla.pl_x - i->pla.planeX * SPEED)]
-			[(int)i->pla.pl_y] != '1')
+		if (no_hitbox(i->map[(int)(i->pla.pl_x - i->pla.planeX * SPEED)]
+			[(int)i->pla.pl_y]))
 			i->pla.pl_x -= i->pla.planeX * SPEED;
-		if (i->map[(int)i->pla.pl_x]
-			[(int)(i->pla.pl_y - i->pla.planeY * SPEED)] != '1')
+		if (no_hitbox(i->map[(int)i->pla.pl_x]
+			[(int)(i->pla.pl_y - i->pla.planeY * SPEED)]))
 			i->pla.pl_y -= i->pla.planeY * SPEED;
 	}
 	if(keyword == RIGHT)
 	{
-		if (i->map[(int)(i->pla.pl_x + i->pla.planeX * SPEED)]
-			[(int)i->pla.pl_y] != '1')
+		if (no_hitbox(i->map[(int)(i->pla.pl_x + i->pla.planeX * SPEED)]
+			[(int)i->pla.pl_y]))
 			i->pla.pl_x += i->pla.planeX * SPEED;
-		if (i->map[(int)i->pla.pl_x]
-			[(int)(i->pla.pl_y + i->pla.planeY * SPEED)] != '1')
+		if (no_hitbox(i->map[(int)i->pla.pl_x]
+			[(int)(i->pla.pl_y + i->pla.planeY * SPEED)]))
 			i->pla.pl_y += i->pla.planeY * SPEED;
+	}
+	if (keyword == SPACE)
+	{
+		action_door_around((int)i->pla.pl_x, (int)i->pla.pl_y, i);
 	}
 	if(keyword == ARROW_R)
 		right_turn(i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/20 21:25:08 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/22 19:07:51 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define DOWN 1
 # define LEFT 0
 # define RIGHT 2
+# define SPACE 49
 # define SPEED 0.11
 # define SPEED_ROT 0.04
 # define ARROW_L 123
@@ -66,6 +67,7 @@ typedef struct s_texture
 	t_data	*text_S;
 	t_data	*text_E;
 	t_data	*text_W;
+	t_data	*text_P;
 	double	wallx;
 	int		texX;
 	int		texY;
@@ -89,6 +91,7 @@ typedef struct s_pla {
 	double		delta_X;
 	double		delta_Y;
 	int			hit;
+	int			hit_door;
 	int			step_x;
 	int			step_y;
 	int			side;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 21:17:49 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/20 21:18:43 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/22 18:01:30 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	print_line_wall(t_info *i, int x)
 			put_pixel_image(i, i->text.text_E, x, y);
 		if(find_wall(i) == 'W')
 			put_pixel_image(i, i->text.text_W, x, y);
+		if(find_wall(i) == 'D')
+			put_pixel_image(i, i->text.text_P, x, y);
 		y++;
 	}
 }
@@ -84,6 +86,8 @@ char	find_wall(t_info *i)
 		return ('S');
 	else if (!i->pla.side && i->pla.step_x < 0 && i->pla.hit)
 		return ('N');
+	else if (i->pla.hit_door)
+		return ('D');
 	else
 		return ('P');
 }

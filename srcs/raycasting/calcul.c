@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calcul.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 21:15:59 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/20 21:16:56 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/22 18:01:23 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_ray(t_info *i, int x)
 	else
 		i->pla.delta_Y = fabs(1 / i->pla.rayDirY);
 	i->pla.hit = 0;
+	i->pla.hit_door = 0;
 	step(i);
 	dda(i);
 }
@@ -58,7 +59,7 @@ void	step(t_info *i)
 
 void	dda(t_info *i)
 {
-	while (i->pla.hit == 0)
+	while (i->pla.hit == 0 && i->pla.hit_door == 0)
 	{
 		if (i->pla.side_disX < i->pla.side_disY)
 		{
@@ -74,5 +75,7 @@ void	dda(t_info *i)
 		}
 		if (i->map[i->pla.mapX][i->pla.mapY] == '1')
 			i->pla.hit = 1;
+		if (i->map[i->pla.mapX][i->pla.mapY] == 'P')
+			i->pla.hit_door = 1;
 	}
 }

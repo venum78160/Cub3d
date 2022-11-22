@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:23:52 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/22 15:15:27 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/22 19:22:12 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,13 @@ int handle_path(char *line, int type, t_info *info, char *id)
 		info->text.text_E->addr = mlx_get_data_addr(info->text.text_E->img, &info->text.text_E->bppixel,
 			&info->text.text_E->line_length, &info->text.text_E->endian);
 	}
+	if (type == 4)
+	{
+		info->text.text_P = ft_calloc(sizeof(t_data), 1);
+		info->text.text_P->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
+		info->text.text_P->addr = mlx_get_data_addr(info->text.text_P->img, &info->text.text_P->bppixel,
+			&info->text.text_P->line_length, &info->text.text_P->endian);
+	}
 	free(path);
 	return (1);
 }
@@ -229,6 +236,8 @@ int check_for_id(char *line, t_info *info)
 		return (handle_path(line, 2, info, id));
 	if (!ft_strcmp(id, "EA"))
 		return (handle_path(line, 3, info, id));
+	if (line[0] && line[0] == 'P')
+		return (handle_path(line, 4, info, id));
 	if (line[0] && line[0] == 'F')
 		return (handle_color(line, 0, info, id));
 	if (line[0] && line[0] == 'C')
@@ -251,7 +260,14 @@ int	is_empty_line(char *line)
 	return (1);
 }
 
-int	map_char_check(char c)
+int add_bonus_path(t_info *info)
+{
+	close(ft_open("./texture/jungle/door_iron_lower.xpm"));
+	check_for_id("P ./texture/jungle/door_iron_lower.xpm", info);
+	return (1);
+}
+
+int	map_char_check(char c, t_info *info)
 {
 	if (c == ' ')
 		return (1);
@@ -267,6 +283,10 @@ int	map_char_check(char c)
 		return (1);
 	if (c == 'S')
 		return (1);
+	if (c == 'P')
+		return add_bonus_path(info);
+	if (c == 'O')
+		return (1);
 	if (c == '\n')
 		return (1);
 	return (0);	
@@ -279,7 +299,7 @@ int	line_map_checker(char *line, t_list **head, t_info *info)
 	i = 0;
 	while (line[i])
 	{
-		if (!map_char_check(line[i]))
+		if (!map_char_check(line[i], info))
 		{
 			free(line);
 			free_texture(info);
@@ -525,6 +545,5 @@ void parsing_v2(t_info *i, char *src)
 			map_parsing(line, fd, i);
 		line = get_next_line(fd);
 	}
-  	i->pla.time = 0; //time of current frame
-  	i->pla.oldtime = 0; //time of previous frame
+	close(fd);
 }
