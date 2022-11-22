@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:23:52 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/22 15:05:18 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/22 15:15:27 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int handle_path(char *line, int type, t_info *info, char *id)
 	path = get_path(line, 2);
 	if (!check_extension(path, ".xpm"))
 	{
+		free(path);
 		free(id);
 		ft_error("Error:\nBad path, file type is wrong.\n", 0);
 	}
@@ -161,6 +162,17 @@ int check_rgb(int n)
 	return (0);
 }
 
+int	free_colors(char **colors)
+{
+	int	i;
+
+	i = 0;
+	while (colors[i])
+		free(colors[i++]);
+	free(colors);
+	return (0);
+}
+
 int colors_to_trgb(char **colors, char *id)
 {
 	int	i;
@@ -173,6 +185,7 @@ int colors_to_trgb(char **colors, char *id)
 		i++;
 	if (i < 3)
 	{
+		free(colors);
 		free(id);
 		ft_error("Error:\n bad colors\n", 0);
 	}
@@ -181,6 +194,7 @@ int colors_to_trgb(char **colors, char *id)
 	b = ft_atoi(colors[2]);
 	if (!check_rgb(r) || !check_rgb(g) || !check_rgb(b))
 	{
+		free(colors);
 		free(id);
 		ft_error("Error:\nrgb must be between 0-255.\n", 0);
 	}
@@ -191,18 +205,14 @@ int handle_color(char *line, int type, t_info *info, char* id)
 {
 	char	**colors;
 	int		trgb;
-	int		i;
 
-	i = 0;
 	colors = ft_split(++line, ',');
 	trgb = colors_to_trgb(colors, id);
 	if (type == 0)
 		info->floor_c = trgb;
 	if (type == 1)
 		info->ceiling_c = trgb;
-	while (colors[i])
-		free(colors[i++]);
-	free(colors);
+	free_colors(colors);
 	return (1);
 }
 
@@ -271,6 +281,7 @@ int	line_map_checker(char *line, t_list **head, t_info *info)
 	{
 		if (!map_char_check(line[i]))
 		{
+			free(line);
 			free_texture(info);
 			ft_lstclear(head, clear_lst);
 			ft_error("Error:\nwrong character in map.\n", 0);
