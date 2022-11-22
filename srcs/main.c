@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/20 21:22:11 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/22 15:09:04 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ int	mouse_moove(int x, int y, t_info *i)
 
 	if (!last_x)
 		last_x = WIDTH / 2;
+	if (x > last_x)
+		right_turn(i);
+	if (x < last_x)
+		left_turn(i);
 	if (y > HEIGHT)
 		mlx_mouse_move(i->mlx_win, x, HEIGHT / 2);
 	if (y < 0)
@@ -68,11 +72,22 @@ int	mouse_moove(int x, int y, t_info *i)
 		mlx_mouse_move(i->mlx_win, WIDTH / 2, HEIGHT / 2);
 	if (x < 0)
 		mlx_mouse_move(i->mlx_win, WIDTH / 2, HEIGHT / 2);
-	if (x > last_x)
-		right_turn(i);
-	if (x < last_x)
-		left_turn(i);
 	last_x = x;
+	return (0);
+}
+
+int free_all(t_info *info)
+{
+	int	i;
+
+	i = 0;
+	free(info->text.text_S);
+	free(info->text.text_N);
+	free(info->text.text_W);
+	free(info->text.text_E);
+	while (info->map[i])
+		free(info->map[i++]);
+	free(info->map);
 	return (0);
 }
 
@@ -98,4 +113,5 @@ int	main(int argc, char **argv)
 	mlx_hook(i.mlx_win, 6, 0L, mouse_moove, &i);
 	mlx_mouse_hook(i.mlx_win, hide_mouse, &i);
 	mlx_loop(i.mlx);
+	free_all(&i);
 }

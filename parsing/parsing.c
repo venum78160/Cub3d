@@ -3,23 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:23:52 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/20 17:03:55 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/22 15:05:18 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+int	free_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+	return (0);
+}
+
+int free_texture(t_info *info)
+{
+	free(info->text.text_S);
+	free(info->text.text_N);
+	free(info->text.text_W);
+	free(info->text.text_E);
+	return (0);
+}
+
+void	clear_lst(void *el)
+{
+	(void)el;
+}
+
 int check_extension(char* src, char *type)
 {
-	char * extension = get_extension(src);
+	char *extension = get_extension(src);
 	if (ft_strcmp(extension, type))
 	{
-		printf("error: bad file type %s\n", src);
-		exit(0);
+		free(extension);
+		return (0);
 	}
+	free(extension);
 	return (1);
 }
 
@@ -75,14 +104,18 @@ char *get_path(char *line, int start)
 	return (res);
 }
 
-int handle_path(char *line, int type, t_info *info)
+int handle_path(char *line, int type, t_info *info, char *id)
 {
 	char	*path;
 	int		x;
 	int		y;
 
 	path = get_path(line, 2);
-	check_extension(path, ".xpm");
+	if (!check_extension(path, ".xpm"))
+	{
+		free(id);
+		ft_error("Error:\nBad path, file type is wrong.\n", 0);
+	}
 	close(ft_open(path));
 	if (type == 0)
 	{
@@ -112,6 +145,7 @@ int handle_path(char *line, int type, t_info *info)
 		info->text.text_E->addr = mlx_get_data_addr(info->text.text_E->img, &info->text.text_E->bppixel,
 			&info->text.text_E->line_length, &info->text.text_E->endian);
 	}
+	free(path);
 	return (1);
 }
 
@@ -127,7 +161,7 @@ int check_rgb(int n)
 	return (0);
 }
 
-int colors_to_trgb(char **colors)
+int colors_to_trgb(char **colors, char *id)
 {
 	int	i;
 	int	r;
@@ -139,28 +173,36 @@ int colors_to_trgb(char **colors)
 		i++;
 	if (i < 3)
 	{
-		printf("Error:\n bad colors\n");
-		exit(0);
+		free(id);
+		ft_error("Error:\n bad colors\n", 0);
 	}
 	r = ft_atoi(colors[0]);
 	g =	ft_atoi(colors[1]);
 	b = ft_atoi(colors[2]);
 	if (!check_rgb(r) || !check_rgb(g) || !check_rgb(b))
+	{
+		free(id);
 		ft_error("Error:\nrgb must be between 0-255.\n", 0);
+	}
 	return (create_trgb(1, r, g, b));
 }
 
-int handle_color(char *line, int type, t_info *info)
+int handle_color(char *line, int type, t_info *info, char* id)
 {
 	char	**colors;
 	int		trgb;
+	int		i;
 
+	i = 0;
 	colors = ft_split(++line, ',');
-	trgb = colors_to_trgb(colors);
+	trgb = colors_to_trgb(colors, id);
 	if (type == 0)
 		info->floor_c = trgb;
 	if (type == 1)
 		info->ceiling_c = trgb;
+	while (colors[i])
+		free(colors[i++]);
+	free(colors);
 	return (1);
 }
 
@@ -170,17 +212,17 @@ int check_for_id(char *line, t_info *info)
 
 	id = get_id(line);
 	if (!ft_strcmp(id, "NO"))
-		return (handle_path(line, 0, info));
+		return (handle_path(line, 0, info, id));
 	if (!ft_strcmp(id, "SO"))
-		return (handle_path(line, 1, info));
+		return (handle_path(line, 1, info, id));
 	if (!ft_strcmp(id, "WE"))
-		return (handle_path(line, 2, info));
+		return (handle_path(line, 2, info, id));
 	if (!ft_strcmp(id, "EA"))
-		return (handle_path(line, 3, info));
+		return (handle_path(line, 3, info, id));
 	if (line[0] && line[0] == 'F')
-		return (handle_color(line, 0, info));
+		return (handle_color(line, 0, info, id));
 	if (line[0] && line[0] == 'C')
-		return (handle_color(line, 1, info));
+		return (handle_color(line, 1, info, id));
 	free(id);
 	return (0);
 }
@@ -220,7 +262,7 @@ int	map_char_check(char c)
 	return (0);	
 }
 
-int	line_map_checker(char *line)
+int	line_map_checker(char *line, t_list **head, t_info *info)
 {
 	int	i;
 
@@ -228,13 +270,17 @@ int	line_map_checker(char *line)
 	while (line[i])
 	{
 		if (!map_char_check(line[i]))
+		{
+			free_texture(info);
+			ft_lstclear(head, clear_lst);
 			ft_error("Error:\nwrong character in map.\n", 0);
+		}
 		i++;
 	}
 	return (1);
 }
 
-int	wall_line_checker_tb(char *line)
+int	wall_line_checker_tb(char *line, char **map, t_info *info)
 {
 	int	i;
 
@@ -242,7 +288,11 @@ int	wall_line_checker_tb(char *line)
 	while (line[i])
 	{
 		if (line[i] != ' ' && line[i] != '1' && line[i] != '\n')
+		{
+			free_map(map);
+			free_texture(info);
 			ft_error("Error:\nmap has to be closed by wall.\n", 0);
+		}
 		i++;
 	}
 	return (1);
@@ -300,7 +350,7 @@ int	wall_line_checker(char **map, int i)
 	return (1);
 }
 
-void	wall_check(char **map)
+void	wall_check(char **map, t_info *info)
 {
 	int	i;
 
@@ -308,22 +358,21 @@ void	wall_check(char **map)
 	while(map[i])
 	{
 		if (!i)
-			wall_line_checker_tb(map[i]);
+			wall_line_checker_tb(map[i], map, info);
 		else if (!map[i + 1])
-			wall_line_checker_tb(map[i]);
+			wall_line_checker_tb(map[i], map, info);
 		else
 		{
 			if (!wall_line_checker(map, i))
+			{
+				free(map);
+				free_texture(info);
 				ft_error("Error:\nmap must be closed.\n", 0);
+			}
 		}
 
 		i++;
 	}
-}
-
-void	clear_lst(void *el)
-{
-	(void)el;
 }
 
 char	**lst_to_map(t_list **head)
@@ -400,7 +449,11 @@ int	set_spawn(char **map, t_info *infos)
 			{
 				spawn_amount++;
 				if (spawn_amount > 1)
+				{
+					free_map(map);
+					free_texture(infos);
 					ft_error("Error:\nmore than 1 spawn.\n", 0);
+				}
 				infos->pla.pl_y = (double)j + 0.5;
 				infos->pla.pl_x = (double)i + 0.5;
 			}
@@ -435,12 +488,12 @@ int	map_parsing(char *line, int fd, t_info *i)
 	head = ft_calloc(sizeof(t_list), 1);
 	while(line)
 	{
-		line_map_checker(line);
+		line_map_checker(line, head, i);
 		ft_lstadd_back(head, ft_lstnew(remove_newline(line)));
 		line = get_next_line(fd);
 	}
 	map = lst_to_map(head);
-	wall_check(map);
+	wall_check(map, i);
 	set_spawn(map, i);
 	i->map = map;
 	return (1);
@@ -451,7 +504,8 @@ void parsing_v2(t_info *i, char *src)
 	int     fd;
 	char    *line;
 	
-	check_extension(src, ".cub");
+	if (!check_extension(src, ".cub"))
+		ft_error("Error:\nBad file type.", 0);
 	fd = ft_open(src);
 	line = get_next_line(fd);
 	while(line)
