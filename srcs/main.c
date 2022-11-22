@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/22 19:21:13 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/22 20:34:14 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	render(t_info *i)
 		print_text(i, x);
 	}
 	mlx_put_image_to_window(i->mlx, i->mlx_win, i->st_img.img, 0, 0);
+	minimap(i);
 	return (1);
 }
 

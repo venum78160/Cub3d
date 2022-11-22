@@ -34,3 +34,17 @@ int	ft_strcmp(const char *s1, const char *s2)
 	}
 	return (cmp_1 - cmp_2);
 }
+
+int	ft_strlen2star(char **str)
+{
+	int i;
+	
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+	{
+		i++;
+	}
+	return (i);
+}

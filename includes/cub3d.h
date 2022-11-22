@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/22 19:25:03 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/22 20:33:40 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@
 # define SPEED_ROT 0.04
 # define ARROW_L 123
 # define ARROW_R 124
-# define LOC_MAP_X 100
-# define LOC_MAP_Y 100
-# define SIZE_BLOCK_MAP 20
-# define NBR_BL_MAP 7
+# define LOC_MAP_X 50
+# define LOC_MAP_Y 50
+# define SIZE_BLOCK_MAP 12
+# define NBR_BL_MAP 11
 # define SENSIVITY 0.7
 
 
@@ -70,6 +70,13 @@ typedef struct s_valid {
 	int C;
 	int Map;
 }	t_valid;
+
+typedef struct s_rect {
+	int	x;
+	int	m_x;
+	int	y;
+	int	m_y;
+}	t_rect;
 
 typedef struct s_texture
 {
@@ -146,6 +153,7 @@ void	text_increaser(t_info *i, int boucle);
 void	backgroud(t_info *i);
 void	right_turn(t_info *i);
 void	left_turn(t_info *i);
+int		ft_strlen2star(char **str);
 
 /* *************************** PARSING *********************** */
 
@@ -160,8 +168,14 @@ char	*get_next_line(int fd);
 
 /* *************************** INIT ************************** */
 
+/* ************************** MINIMAP ************************* */
+void	minimap(t_info	*i);
+void	ml_case(t_info *i, void (*fonction)());
+void	ml_rect(t_info info, t_rect rect, int color);
+void	ml_fond_case(int x, int y, t_info *i);
 
 /* ************************** ERREUR ************************* */
 void	msg_exit(char *string);
+int		free_all(t_info *info);
 
 #endif

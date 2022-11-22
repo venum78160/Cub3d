@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:01:38 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/20 21:21:29 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/22 16:21:32 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	msg_exit(char *string)
 int	ft_quit(t_info *i)
 {
 	mlx_destroy_window(i->mlx, i->mlx_win);
+	free_all(i);
 	exit(1);
 	return (EXIT_SUCCESS);
 }
