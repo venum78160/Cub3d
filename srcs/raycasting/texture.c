@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 21:17:49 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/22 18:01:30 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/22 22:59:20 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,22 @@ void	print_text(t_info *i, int x)
 	print_line_wall(i, x);
 }
 
+void	text_door(t_info *i, int x, int y)
+{
+	if(i->text.count == 200)
+		put_pixel_image(i, i->text.door_close, x, y);
+	else if(i->text.count / 40 + 1 == 1)
+		put_pixel_image(i, i->text.door_1, x, y);
+	else if(i->text.count / 40 + 1 == 2)
+		put_pixel_image(i, i->text.door_2, x, y);
+	else if(i->text.count / 40 + 1 == 3)
+		put_pixel_image(i, i->text.door_3, x, y);
+	else if(i->text.count / 40 + 1 == 4)
+		put_pixel_image(i, i->text.door_4, x, y);
+	else if(i->text.count / 40 + 1 == 5)
+		put_pixel_image(i, i->text.door_5, x, y);
+}
+
 void	print_line_wall(t_info *i, int x)
 {
 	int y;
@@ -56,7 +72,7 @@ void	print_line_wall(t_info *i, int x)
 		if(find_wall(i) == 'W')
 			put_pixel_image(i, i->text.text_W, x, y);
 		if(find_wall(i) == 'D')
-			put_pixel_image(i, i->text.text_P, x, y);
+			text_door(i, x, y);
 		y++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/22 20:33:40 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/22 22:52:50 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,19 @@ typedef struct s_texture
 	t_data	*text_E;
 	t_data	*text_W;
 	t_data	*text_P;
+	t_data	*door_close;
+	t_data	*door_1;
+	t_data	*door_2;
+	t_data	*door_3;
+	t_data	*door_4;
+	t_data	*door_5;
 	double	wallx;
 	int		texX;
 	int		texY;
 	double	step;
 	double	textpos;
 	int		color;
+	int		count;
 }	t_text;
 
 typedef struct s_pla {
@@ -167,6 +174,7 @@ char	*get_next_line(int fd);
 
 
 /* *************************** INIT ************************** */
+void	text_init(t_info *i);
 
 /* ************************** MINIMAP ************************* */
 void	minimap(t_info	*i);
@@ -177,5 +185,7 @@ void	ml_fond_case(int x, int y, t_info *i);
 /* ************************** ERREUR ************************* */
 void	msg_exit(char *string);
 int		free_all(t_info *info);
+
+void	text_door(t_info *i, int x, int y);
 
 #endif
