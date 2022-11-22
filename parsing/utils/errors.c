@@ -12,9 +12,8 @@
 
 #include "../includes/cub3d.h"
 
-int ft_error(char *err, int type)
+int	ft_error(char *err, int type)
 {
-    printf("%s", err);
-    exit(type);
+	printf("%s", err);
+	exit(type);
 }
-
