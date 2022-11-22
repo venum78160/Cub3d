@@ -1,46 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_extension.c                                    :+:      :+:    :+:   */
+/*   remove_newline.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 19:41:41 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/22 21:28:03 by mgoudin          ###   ########.fr       */
+/*   Created: 2022/11/22 20:49:31 by mgoudin           #+#    #+#             */
+/*   Updated: 2022/11/22 20:49:38 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	get_extension_len(char *src)
+char	*remove_newline(char *line)
 {
-	int	len;
-	int	ext_len;
-
-	len = ft_strlen(src) - 1;
-	ext_len = len;
-	while (src[ext_len] && src[ext_len] != '.')
-		ext_len--;
-	return (len - ext_len);
-}
-
-char	*get_extension(char *src)
-{
-	int		len;
-	int		ext_len;
-	char	*res;
 	int		i;
+	char	*res;
 
-	len = ft_strlen(src) - 1;
-	ext_len = get_extension_len(src);
-	res = ft_calloc(ext_len + 1, 1);
 	i = 0;
-	while (src[len - ext_len])
+	res = ft_calloc(ft_strlen(line), 1);
+	while(line[i] && line[i] != '\n')
 	{
-		res[i] = src[len - ext_len];
+		res[i] = line[i];
 		i++;
-		ext_len--;
 	}
-	res[i] = '\0';
+	free(line);
 	return (res);
 }
