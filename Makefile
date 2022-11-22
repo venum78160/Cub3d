@@ -23,6 +23,7 @@ MLX	=	-lft -lmlx -framework OpenGL -framework AppKit
 
 SRCS = srcs/main.c \
 		$(addprefix srcs/helpful/, helpful.c raycasting_help.c) \
+		$(addprefix srcs/minimap/, minimap.c) \
 		$(addprefix srcs/raycasting/, calcul.c key_event.c texture.c) \
 		parsing/parsing.c \
 		parsing/open_doc.c \
@@ -31,7 +32,6 @@ SRCS = srcs/main.c \
 		parsing/utils/get_extension.c \
 		parsing/utils/gnl.c \
 		parsing/lib/ft_strcmp.c \
-		#$(addprefix srcs/minimap/, minimap.c) \
 
 OBJS = $(SRCS:.c=.o)
 
