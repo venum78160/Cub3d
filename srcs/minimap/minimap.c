@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/15 23:07:49 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/22 18:53:12 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/22 19:28:36 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ml_fond_case(int x, int y, t_info *i)
 	}
 	else if ( i->map[ind_x][ind_y] == '1')
 		ml_rect(*i, (t_rect){y, y + SIZE_BLOCK_MAP, x, x + SIZE_BLOCK_MAP}, 0x00FF0000);
-	else if ( i->map[ind_x][ind_y] == 'P' || 'O')
+	else if ( i->map[ind_x][ind_y] == 'P' || i->map[ind_x][ind_y] == 'O')
 		ml_rect(*i, (t_rect){y, y + SIZE_BLOCK_MAP, x, x + SIZE_BLOCK_MAP}, 0x00FF0000);
 }
 
