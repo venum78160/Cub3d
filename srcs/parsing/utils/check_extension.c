@@ -1,0 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_extension.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/22 20:49:07 by mgoudin           #+#    #+#             */
+/*   Updated: 2022/11/24 18:17:11 by mgoudin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../../includes/cub3d.h"
+
+int	check_extension(char *src, char *type)
+{
+	char	*extension;
+
+	extension = get_extension(src);
+	if (ft_strcmp(extension, type))
+	{
+		free(extension);
+		return (0);
+	}
+	free(extension);
+	return (1);
+}

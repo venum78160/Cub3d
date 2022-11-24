@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 21:17:49 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/22 22:59:20 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/24 17:49:12 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,38 +40,38 @@ void	print_text(t_info *i, int x)
 
 void	text_door(t_info *i, int x, int y)
 {
-	if(i->text.count == 200)
+	if (i->text.count == PORTE_T)
 		put_pixel_image(i, i->text.door_close, x, y);
-	else if(i->text.count / 40 + 1 == 1)
-		put_pixel_image(i, i->text.door_1, x, y);
-	else if(i->text.count / 40 + 1 == 2)
-		put_pixel_image(i, i->text.door_2, x, y);
-	else if(i->text.count / 40 + 1 == 3)
-		put_pixel_image(i, i->text.door_3, x, y);
-	else if(i->text.count / 40 + 1 == 4)
-		put_pixel_image(i, i->text.door_4, x, y);
-	else if(i->text.count / 40 + 1 == 5)
+	else if (i->text.count / (PORTE_T / 5) + 1 == 1)
 		put_pixel_image(i, i->text.door_5, x, y);
+	else if (i->text.count / (PORTE_T / 5) + 1 == 2)
+		put_pixel_image(i, i->text.door_4, x, y);
+	else if (i->text.count / (PORTE_T / 5) + 1 == 3)
+		put_pixel_image(i, i->text.door_3, x, y);
+	else if (i->text.count / (PORTE_T / 5) + 1 == 4)
+		put_pixel_image(i, i->text.door_2, x, y);
+	else if (i->text.count / (PORTE_T / 5) + 1 == 5)
+		put_pixel_image(i, i->text.door_1, x, y);
 }
 
 void	print_line_wall(t_info *i, int x)
 {
-	int y;
-	
+	int	y;
+
 	y = i->pla.draw_start;
 	text_increaser(i, 0);
 	while (y <= i->pla.draw_end)
 	{
 		text_increaser(i, 1);
-		if(find_wall(i) == 'N')
+		if (find_wall(i) == 'N')
 			put_pixel_image(i, i->text.text_N, x, y);
-		if(find_wall(i) == 'S')
+		if (find_wall(i) == 'S')
 			put_pixel_image(i, i->text.text_S, x, y);
-		if(find_wall(i) == 'E')
+		if (find_wall(i) == 'E')
 			put_pixel_image(i, i->text.text_E, x, y);
-		if(find_wall(i) == 'W')
+		if (find_wall(i) == 'W')
 			put_pixel_image(i, i->text.text_W, x, y);
-		if(find_wall(i) == 'D')
+		if (find_wall(i) == 'D')
 			text_door(i, x, y);
 		y++;
 	}
@@ -79,10 +79,11 @@ void	print_line_wall(t_info *i, int x)
 
 void	text_increaser(t_info *i, int boucle)
 {
-	if(boucle == 0)
+	if (boucle == 0)
 	{
 		i->text.step = 1.0 * TEXT_SIZE / i->pla.line_h;
-		i->text.textpos = (i->pla.draw_start - HEIGHT / 2.0 + i->pla.line_h / 2.0) * i->text.step;
+		i->text.textpos = (i->pla.draw_start - HEIGHT
+				/ 2.0 + i->pla.line_h / 2.0) * i->text.step;
 	}
 	else
 	{
