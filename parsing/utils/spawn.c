@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spawn.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:42:36 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/22 21:21:24 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/24 18:26:56 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ int    handle_spawn_EW(char c, t_info *infos)
 {
     if (c == 'E')
     {
-        infos->pla.dirX = 0;
-        infos->pla.dirY = 1;
-        infos->pla.planeX = FOVY;
-        infos->pla.planeY = 0;
+        infos->pla.dirx = 0;
+        infos->pla.diry = 1;
+        infos->pla.plane_x = FOVY;
+        infos->pla.plane_y = 0;
         return (1);
     }
     if (c == 'W')
     {
-        infos->pla.dirX = 0;
-        infos->pla.dirY = -1;
-        infos->pla.planeX = -1 * FOVY;
-        infos->pla.planeY = 0;
+        infos->pla.dirx = 0;
+        infos->pla.diry = -1;
+        infos->pla.plane_x = -1 * FOVY;
+        infos->pla.plane_y = 0;
         return (1);
     }
     return (0);
@@ -37,18 +37,18 @@ int try_set_spawn_point(char c, t_info *infos)
 {
     if (c == 'N')
     {
-        infos->pla.dirX = -1;
-        infos->pla.dirY = 0;
-        infos->pla.planeX = 0;
-        infos->pla.planeY = FOVY;
+        infos->pla.dirx = -1;
+        infos->pla.diry = 0;
+        infos->pla.plane_x = 0;
+        infos->pla.plane_y = FOVY;
         return (1);
     }
     if (c == 'S')
     {
-        infos->pla.dirX = 1;
-        infos->pla.dirY = 0;
-        infos->pla.planeX = 0;
-        infos->pla.planeY = -1 * FOVY;
+        infos->pla.dirx = 1;
+        infos->pla.diry = 0;
+        infos->pla.plane_x = 0;
+        infos->pla.plane_y = -1 * FOVY;
         return (1);
     }
     return (handle_spawn_EW(c, infos));

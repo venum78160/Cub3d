@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 19:07:47 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/24 17:29:48 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:34:28 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	get_color(t_data *data, int x, int y)
 
 void	put_pixel_image(t_info *i, t_data *data, int x, int y)
 {
-	get_color(data, i->text.texX, i->text.texY);
+	get_color(data, i->text.texx, i->text.texy);
 	my_mlx_pixel_put(&i->st_img, x, y, *(int *)data->color);
 }
 

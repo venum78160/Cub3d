@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:44:05 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/22 20:44:21 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/24 18:33:17 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 void init_valid(t_info *i)
 {
-	i->valid.N = 0;
-	i->valid.S = 0;
-	i->valid.E = 0;
-	i->valid.W = 0;
-	i->valid.C = 0;
-	i->valid.F = 0;
-	i->valid.Map = 0;
+	i->valid.n = 0;
+	i->valid.s = 0;
+	i->valid.e = 0;
+	i->valid.w = 0;
+	i->valid.c = 0;
+	i->valid.f = 0;
+	i->valid.map = 0;
 }
 
 int check_valid(t_info *i)
 {
-	if (!(i->valid.N))
+	if (!(i->valid.n))
 		return (0);
-	if (!(i->valid.S))
+	if (!(i->valid.s))
 		return (0);
-	if (!(i->valid.E))
+	if (!(i->valid.e))
 		return (0);
-	if (!(i->valid.W))
+	if (!(i->valid.w))
 		return (0);
-	if (!(i->valid.F))
+	if (!(i->valid.f))
 		return (0);
-	if (!(i->valid.C))
+	if (!(i->valid.c))
 		return (0);
-	if (!(i->valid.Map))
+	if (!(i->valid.map))
 		return (0);
 	return (1);
 }

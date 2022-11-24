@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:23:52 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/24 18:07:32 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:36:41 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ int	free_map(char **map)
 
 int free_texture(t_info *info)
 {
-	if (info->valid.S)
-		free(info->text.text_S);
-	if (info->valid.N)
-		free(info->text.text_N);
-	if (info->valid.W)
-		free(info->text.text_W);
-	if (info->valid.E)
-		free(info->text.text_E);
+	if (info->valid.s)
+		free(info->text.text_s);
+	if (info->valid.n)
+		free(info->text.text_n);
+	if (info->valid.w)
+		free(info->text.text_w);
+	if (info->valid.e)
+		free(info->text.text_e);
 	return (0);
 }
 
@@ -126,35 +126,35 @@ int handle_path(char *line, int type, t_info *info, char *id)
 	close(ft_open(path));
 	if (type == 0)
 	{
-		info->valid.N = 1;
-		info->text.text_N = ft_calloc(sizeof(t_data), 1);
-		info->text.text_N->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
-		info->text.text_N->addr = mlx_get_data_addr(info->text.text_N->img, &info->text.text_N->bppixel,
-			&info->text.text_N->line_length, &info->text.text_N->endian);
+		info->valid.n = 1;
+		info->text.text_n = ft_calloc(sizeof(t_data), 1);
+		info->text.text_n->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
+		info->text.text_n->addr = mlx_get_data_addr(info->text.text_n->img, &info->text.text_n->bppixel,
+			&info->text.text_n->line_length, &info->text.text_n->endian);
 	}
 	if (type == 1)
 	{
-		info->valid.S = 1;
-		info->text.text_S = ft_calloc(sizeof(t_data), 1);
-		info->text.text_S->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
-		info->text.text_S->addr = mlx_get_data_addr(info->text.text_S->img, &info->text.text_S->bppixel,
-			&info->text.text_S->line_length, &info->text.text_S->endian);
+		info->valid.s = 1;
+		info->text.text_s = ft_calloc(sizeof(t_data), 1);
+		info->text.text_s->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
+		info->text.text_s->addr = mlx_get_data_addr(info->text.text_s->img, &info->text.text_s->bppixel,
+			&info->text.text_s->line_length, &info->text.text_s->endian);
 	}
 	if (type == 2)
 	{
-		info->valid.W = 1;
-		info->text.text_W = ft_calloc(sizeof(t_data), 1);
-		info->text.text_W->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
-		info->text.text_W->addr = mlx_get_data_addr(info->text.text_W->img, &info->text.text_W->bppixel,
-			&info->text.text_W->line_length, &info->text.text_W->endian);
+		info->valid.w = 1;
+		info->text.text_w = ft_calloc(sizeof(t_data), 1);
+		info->text.text_w->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
+		info->text.text_w->addr = mlx_get_data_addr(info->text.text_w->img, &info->text.text_w->bppixel,
+			&info->text.text_w->line_length, &info->text.text_w->endian);
 	}
 	if (type == 3)
 	{
-		info->valid.E = 1;
-		info->text.text_E = ft_calloc(sizeof(t_data), 1);
-		info->text.text_E->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
-		info->text.text_E->addr = mlx_get_data_addr(info->text.text_E->img, &info->text.text_E->bppixel,
-			&info->text.text_E->line_length, &info->text.text_E->endian);
+		info->valid.e = 1;
+		info->text.text_e = ft_calloc(sizeof(t_data), 1);
+		info->text.text_e->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
+		info->text.text_e->addr = mlx_get_data_addr(info->text.text_e->img, &info->text.text_e->bppixel,
+			&info->text.text_e->line_length, &info->text.text_e->endian);
 	}
 	free(path);
 	return (1);
@@ -220,12 +220,12 @@ int handle_color(char *line, int type, t_info *info, char* id)
 	trgb = colors_to_trgb(colors, id);
 	if (type == 0)
 	{
-		info->valid.F = 1;
+		info->valid.f = 1;
 		info->floor_c = trgb;
 	}
 	if (type == 1)
 	{
-		info->valid.C = 1;
+		info->valid.c = 1;
 		info->ceiling_c = trgb;
 	}
 	free_colors(colors);
@@ -439,34 +439,34 @@ int try_set_spawn_point(char c, t_info *infos)
 {
     if (c == 'N')
     {
-        infos->pla.dirX = -1;
-        infos->pla.dirY = 0;
-        infos->pla.planeX = 0;
-        infos->pla.planeY = FOVY;
+        infos->pla.dirx = -1;
+        infos->pla.diry = 0;
+        infos->pla.plane_x = 0;
+        infos->pla.plane_y = FOVY;
         return (1);
     }
     if (c == 'S')
     {
-        infos->pla.dirX = 1;
-        infos->pla.dirY = 0;
-        infos->pla.planeX = 0;
-        infos->pla.planeY = -1 * FOVY;
+        infos->pla.dirx = 1;
+        infos->pla.diry = 0;
+        infos->pla.plane_x = 0;
+        infos->pla.plane_y = -1 * FOVY;
         return (1);
     }
     if (c == 'E')
     {
-        infos->pla.dirX = 0;
-        infos->pla.dirY = 1;
-        infos->pla.planeX = FOVY;
-        infos->pla.planeY = 0;
+        infos->pla.dirx = 0;
+        infos->pla.diry = 1;
+        infos->pla.plane_x = FOVY;
+        infos->pla.plane_y = 0;
         return (1);
     }
     if (c == 'W')
     {
-        infos->pla.dirX = 0;
-        infos->pla.dirY = -1;
-        infos->pla.planeX = -1 * FOVY;
-        infos->pla.planeY = 0;
+        infos->pla.dirx = 0;
+        infos->pla.diry = -1;
+        infos->pla.plane_x = -1 * FOVY;
+        infos->pla.plane_y = 0;
         return (1);
     }
     return (0);
@@ -525,7 +525,7 @@ int	map_parsing(char *line, int fd, t_info *i)
 	char	**map;
 	t_list	**head;
 	
-	i->valid.Map = 1;
+	i->valid.map = 1;
 	head = ft_calloc(sizeof(t_list), 1);
 	while(line)
 	{
@@ -542,30 +542,30 @@ int	map_parsing(char *line, int fd, t_info *i)
 
 void init_valid(t_info *i)
 {
-	i->valid.N = 0;
-	i->valid.S = 0;
-	i->valid.E = 0;
-	i->valid.W = 0;
-	i->valid.C = 0;
-	i->valid.F = 0;
-	i->valid.Map = 0;
+	i->valid.n = 0;
+	i->valid.s = 0;
+	i->valid.e = 0;
+	i->valid.w = 0;
+	i->valid.c = 0;
+	i->valid.f = 0;
+	i->valid.map = 0;
 }
 
 int check_valid(t_info *i)
 {
-	if (!(i->valid.N))
+	if (!(i->valid.n))
 		return (0);
-	if (!(i->valid.S))
+	if (!(i->valid.s))
 		return (0);
-	if (!(i->valid.E))
+	if (!(i->valid.e))
 		return (0);
-	if (!(i->valid.W))
+	if (!(i->valid.w))
 		return (0);
-	if (!(i->valid.F))
+	if (!(i->valid.f))
 		return (0);
-	if (!(i->valid.C))
+	if (!(i->valid.c))
 		return (0);
-	if (!(i->valid.Map))
+	if (!(i->valid.map))
 		return (0);
 	return (1);
 }

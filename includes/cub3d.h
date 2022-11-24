@@ -5,13 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/24 18:05:56 by vl-hotel         ###   ########.fr       */
+/*   Created: 2022/11/24 18:21:42 by vl-hotel          #+#    #+#             */
+/*   Updated: 2022/11/24 18:34:55 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_3D
-# define CUB_3D
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # define WIDTH 1300
 # define HEIGHT 690
@@ -34,7 +34,6 @@
 # define SENS 0.7 // SENSIVITY
 # define PORTE_T 50
 
-
 /* ************************* INCLUDES ************************* */
 # include "../Libft/libft.h"
 # include "../minilibx/mlx.h"
@@ -56,13 +55,13 @@ typedef struct s_data {
 }	t_data;
 
 typedef struct s_valid {
-	int	N;
-	int S;
-	int W;
-	int E;
-	int F;
-	int C;
-	int Map;
+	int	n;
+	int	s;
+	int	w;
+	int	e;
+	int	f;
+	int	c;
+	int	map;
 }	t_valid;
 
 typedef struct s_rect {
@@ -74,10 +73,10 @@ typedef struct s_rect {
 
 typedef struct s_texture
 {
-	t_data	*text_N;
-	t_data	*text_S;
-	t_data	*text_E;
-	t_data	*text_W;
+	t_data	*text_n;
+	t_data	*text_s;
+	t_data	*text_e;
+	t_data	*text_w;
 	t_data	*door_close;
 	t_data	*door_1;
 	t_data	*door_2;
@@ -85,8 +84,8 @@ typedef struct s_texture
 	t_data	*door_4;
 	t_data	*door_5;
 	double	wallx;
-	int		texX;
-	int		texY;
+	int		texx;
+	int		texy;
 	double	step;
 	double	textpos;
 	int		count;
@@ -95,24 +94,24 @@ typedef struct s_texture
 typedef struct s_pla {
 	double		pl_x;
 	double		pl_y;
-	double		dirX;
-	double		dirY;
-	double		planeX;
-	double		planeY;
-	double		cameraX;
-	double		rayDirX;
-	double		rayDirY;
-	int			mapX;
-	int			mapY;
-	double		delta_X;
-	double		delta_Y;
+	double		dirx;
+	double		diry;
+	double		plane_x;
+	double		plane_y;
+	double		camerax;
+	double		raydirx;
+	double		raydiry;
+	int			mapx;
+	int			mapy;
+	double		delta_x;
+	double		delta_y;
 	int			hit;
 	int			hit_door;
 	int			step_x;
 	int			step_y;
 	int			side;
-	double		side_disX;
-	double		side_disY;
+	double		side_disx;
+	double		side_disy;
 	double		dist_wall;
 	int			line_h;
 	int			draw_start;
@@ -127,8 +126,8 @@ typedef struct s_info {
 	char			**map;
 	unsigned int	floor_c;
 	unsigned int	ceiling_c;
-	void	*mlx;
-	void	*mlx_win;
+	void			*mlx;
+	void			*mlx_win;
 }	t_info;
 
 /* *************************** PARSING *********************** */
@@ -140,7 +139,6 @@ int		ft_error(char *err, int type);
 char	*ft_gnljoin(char *s1, char *s2);
 char	*get_extension(char *src);
 char	*get_next_line(int fd);
-
 
 /* *************************** INIT ************************** */
 void	text_init(t_info *i);

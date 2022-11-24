@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 21:17:49 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/24 17:49:12 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:34:28 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	print_text(t_info *i, int x)
 {
 	if (!i->pla.side)
-		i->pla.dist_wall = i->pla.side_disX - i->pla.delta_X;
+		i->pla.dist_wall = i->pla.side_disx - i->pla.delta_x;
 	else
-		i->pla.dist_wall = i->pla.side_disY - i->pla.delta_Y;
+		i->pla.dist_wall = i->pla.side_disy - i->pla.delta_y;
 	i->pla.line_h = (int)(HEIGHT / i->pla.dist_wall);
 	i->pla.draw_start = -1 * i->pla.line_h / 2.0 + HEIGHT / 2.0 + 1;
 	if (i->pla.draw_start < 0)
@@ -26,15 +26,15 @@ void	print_text(t_info *i, int x)
 	if (i->pla.draw_end >= HEIGHT)
 		i->pla.draw_end = HEIGHT + 1;
 	if (i->pla.side)
-		i->text.wallx = i->pla.pl_x + i->pla.dist_wall * i->pla.rayDirX;
+		i->text.wallx = i->pla.pl_x + i->pla.dist_wall * i->pla.raydirx;
 	else
-		i->text.wallx = i->pla.pl_y + i->pla.dist_wall * i->pla.rayDirY;
+		i->text.wallx = i->pla.pl_y + i->pla.dist_wall * i->pla.raydiry;
 	i->text.wallx -= floor(i->text.wallx);
-	i->text.texX = (int)(i->text.wallx * (double)TEXT_SIZE);
-	if (!i->pla.side && i->pla.rayDirX > 0)
-		i->text.texX = TEXT_SIZE - i->text.texX;
-	if (i->pla.side && i->pla.rayDirY < 0)
-		i->text.texX = TEXT_SIZE - i->text.texX;
+	i->text.texx = (int)(i->text.wallx * (double)TEXT_SIZE);
+	if (!i->pla.side && i->pla.raydirx > 0)
+		i->text.texx = TEXT_SIZE - i->text.texx;
+	if (i->pla.side && i->pla.raydiry < 0)
+		i->text.texx = TEXT_SIZE - i->text.texx;
 	print_line_wall(i, x);
 }
 
@@ -64,13 +64,13 @@ void	print_line_wall(t_info *i, int x)
 	{
 		text_increaser(i, 1);
 		if (find_wall(i) == 'N')
-			put_pixel_image(i, i->text.text_N, x, y);
+			put_pixel_image(i, i->text.text_n, x, y);
 		if (find_wall(i) == 'S')
-			put_pixel_image(i, i->text.text_S, x, y);
+			put_pixel_image(i, i->text.text_s, x, y);
 		if (find_wall(i) == 'E')
-			put_pixel_image(i, i->text.text_E, x, y);
+			put_pixel_image(i, i->text.text_e, x, y);
 		if (find_wall(i) == 'W')
-			put_pixel_image(i, i->text.text_W, x, y);
+			put_pixel_image(i, i->text.text_w, x, y);
 		if (find_wall(i) == 'D')
 			text_door(i, x, y);
 		y++;
@@ -87,8 +87,8 @@ void	text_increaser(t_info *i, int boucle)
 	}
 	else
 	{
-		i->text.texY = (int)i->text.textpos & (TEXT_SIZE - 1);
-		i->text.texY += 1;
+		i->text.texy = (int)i->text.textpos & (TEXT_SIZE - 1);
+		i->text.texy += 1;
 		i->text.textpos += i->text.step;
 	}
 }

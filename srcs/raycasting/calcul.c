@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 21:15:59 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/23 17:48:41 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:34:55 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void	init_ray(t_info *i, int x)
 {
-	i->pla.cameraX = 2 * x / (double)(WIDTH)-1;
-	i->pla.rayDirX = i->pla.dirX + i->pla.planeX * i->pla.cameraX;
-	i->pla.rayDirY = i->pla.dirY + i->pla.planeY * i->pla.cameraX;
-	i->pla.mapX = (int)i->pla.pl_x;
-	i->pla.mapY = (int)i->pla.pl_y;
-	if (!i->pla.rayDirX)
-		i->pla.delta_X = INFINITY;
+	i->pla.camerax = 2 * x / (double)(WIDTH)-1;
+	i->pla.raydirx = i->pla.dirx + i->pla.plane_x * i->pla.camerax;
+	i->pla.raydiry = i->pla.diry + i->pla.plane_y * i->pla.camerax;
+	i->pla.mapx = (int)i->pla.pl_x;
+	i->pla.mapy = (int)i->pla.pl_y;
+	if (!i->pla.raydirx)
+		i->pla.delta_x = INFINITY;
 	else
-		i->pla.delta_X = fabs(1 / i->pla.rayDirX);
-	if (!i->pla.rayDirY)
-		i->pla.delta_Y = INFINITY;
+		i->pla.delta_x = fabs(1 / i->pla.raydirx);
+	if (!i->pla.raydiry)
+		i->pla.delta_y = INFINITY;
 	else
-		i->pla.delta_Y = fabs(1 / i->pla.rayDirY);
+		i->pla.delta_y = fabs(1 / i->pla.raydiry);
 	i->pla.hit = 0;
 	i->pla.hit_door = 0;
 	step(i);
@@ -35,25 +35,25 @@ void	init_ray(t_info *i, int x)
 
 void	step(t_info *i)
 {
-	if (i->pla.rayDirX < 0)
+	if (i->pla.raydirx < 0)
 	{
 		i->pla.step_x = -1;
-		i->pla.side_disX = (i->pla.pl_x - i->pla.mapX) * i->pla.delta_X;
+		i->pla.side_disx = (i->pla.pl_x - i->pla.mapx) * i->pla.delta_x;
 	}
 	else
 	{
 		i->pla.step_x = 1;
-		i->pla.side_disX = (i->pla.mapX + 1.0 - i->pla.pl_x) * i->pla.delta_X;
+		i->pla.side_disx = (i->pla.mapx + 1.0 - i->pla.pl_x) * i->pla.delta_x;
 	}
-	if (i->pla.rayDirY < 0)
+	if (i->pla.raydiry < 0)
 	{
 		i->pla.step_y = -1;
-		i->pla.side_disY = (i->pla.pl_y - i->pla.mapY) * i->pla.delta_Y;
+		i->pla.side_disy = (i->pla.pl_y - i->pla.mapy) * i->pla.delta_y;
 	}
 	else
 	{
 		i->pla.step_y = 1;
-		i->pla.side_disY = (i->pla.mapY + 1.0 - i->pla.pl_y) * i->pla.delta_Y;
+		i->pla.side_disy = (i->pla.mapy + 1.0 - i->pla.pl_y) * i->pla.delta_y;
 	}
 }
 
@@ -61,21 +61,21 @@ void	dda(t_info *i)
 {
 	while (i->pla.hit == 0 && i->pla.hit_door == 0)
 	{
-		if (i->pla.side_disX < i->pla.side_disY)
+		if (i->pla.side_disx < i->pla.side_disy)
 		{
-			i->pla.side_disX += i->pla.delta_X;
-			i->pla.mapX += i->pla.step_x;
+			i->pla.side_disx += i->pla.delta_x;
+			i->pla.mapx += i->pla.step_x;
 			i->pla.side = 0;
 		}
 		else
 		{
-			i->pla.side_disY += i->pla.delta_Y;
-			i->pla.mapY += i->pla.step_y;
+			i->pla.side_disy += i->pla.delta_y;
+			i->pla.mapy += i->pla.step_y;
 			i->pla.side = 1;
 		}
-		if (i->map[i->pla.mapX][i->pla.mapY] == '1')
+		if (i->map[i->pla.mapx][i->pla.mapy] == '1')
 			i->pla.hit = 1;
-		if (i->map[i->pla.mapX][i->pla.mapY] == 'P')
+		if (i->map[i->pla.mapx][i->pla.mapy] == 'P')
 			i->pla.hit_door = 1;
 	}
 }

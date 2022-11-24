@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/24 18:06:44 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:27:47 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int	free_all(t_info *info)
 	int	i;
 
 	i = 0;
-	free(info->text.text_S);
-	free(info->text.text_N);
-	free(info->text.text_W);
-	free(info->text.text_E);
+	free(info->text.text_s);
+	free(info->text.text_n);
+	free(info->text.text_w);
+	free(info->text.text_e);
 	while (info->map[i])
 		free(info->map[i++]);
 	free(info->map);
