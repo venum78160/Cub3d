@@ -6,13 +6,13 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:44:05 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/22 20:44:21 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/24 17:57:08 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void init_valid(t_info *i)
+void	init_valid(t_info *i)
 {
 	i->valid.N = 0;
 	i->valid.S = 0;
@@ -23,7 +23,7 @@ void init_valid(t_info *i)
 	i->valid.Map = 0;
 }
 
-int check_valid(t_info *i)
+int	check_valid(t_info *i)
 {
 	if (!(i->valid.N))
 		return (0);

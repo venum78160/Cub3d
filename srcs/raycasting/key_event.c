@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_event.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 21:19:34 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/22 18:53:02 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/22 22:47:26 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char get_invert(int x, int y, t_info *info)
 int action_door(int x, int y, t_info *info)
 {
 	info->map[x][y] = get_invert(x, y, info);
+	info->text.count = 0;
 	return (1);
 }
 

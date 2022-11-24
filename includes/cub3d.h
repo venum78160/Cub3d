@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/22 21:16:47 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/24 18:03:20 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,19 @@ typedef struct s_texture
 	t_data	*text_E;
 	t_data	*text_W;
 	t_data	*text_P;
+	t_data	*door_close;
+	t_data	*door_1;
+	t_data	*door_2;
+	t_data	*door_3;
+	t_data	*door_4;
+	t_data	*door_5;
 	double	wallx;
 	int		texX;
 	int		texY;
 	double	step;
 	double	textpos;
 	int		color;
+	int		count;
 }	t_text;
 
 typedef struct s_pla {
@@ -164,8 +171,6 @@ int		ft_error(char *err, int type);
 char	*ft_gnljoin(char *s1, char *s2);
 char	*get_extension(char *src);
 char	*get_next_line(int fd);
-int		add_bonus_path(t_info *info);
-void    handle_bonus(t_info *info, int type, char* path);
 void	clear_lst(void *el);
 int		check_extension(char* src, char *type);
 int		free_map(char **map);
@@ -184,6 +189,7 @@ void	init_valid(t_info *i);
 void	wall_check(char **map, t_info *info);
 
 /* *************************** INIT ************************** */
+void	text_init(t_info *i);
 
 /* ************************** MINIMAP ************************* */
 void	minimap(t_info	*i);
@@ -194,5 +200,7 @@ void	ml_fond_case(int x, int y, t_info *i);
 /* ************************** ERREUR ************************* */
 void	msg_exit(char *string);
 int		free_all(t_info *info);
+
+void	text_door(t_info *i, int x, int y);
 
 #endif

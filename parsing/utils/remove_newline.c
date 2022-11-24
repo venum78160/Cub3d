@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:49:31 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/22 20:49:38 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/24 17:52:56 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*remove_newline(char *line)
 
 	i = 0;
 	res = ft_calloc(ft_strlen(line), 1);
-	while(line[i] && line[i] != '\n')
+	while (line[i] && line[i] != '\n')
 	{
 		res[i] = line[i];
 		i++;
