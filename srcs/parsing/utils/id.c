@@ -6,11 +6,11 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:43:36 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/22 21:28:55 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/24 18:17:30 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../../includes/cub3d.h"
 
 char	*get_id(char *line)
 {

@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -11,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../../includes/cub3d.h"
 
 int	ft_strcmp(const char *s1, const char *s2)
 {
@@ -37,14 +36,12 @@ int	ft_strcmp(const char *s1, const char *s2)
 
 int	ft_strlen2star(char **str)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	if (!str)
 		return (0);
 	while (str[i])
-	{
 		i++;
-	}
 	return (i);
 }

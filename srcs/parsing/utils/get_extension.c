@@ -6,11 +6,11 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:41:41 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/22 21:28:03 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/24 18:17:23 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../../includes/cub3d.h"
 
 int	get_extension_len(char *src)
 {

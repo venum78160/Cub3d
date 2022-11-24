@@ -25,13 +25,24 @@ SRCS = srcs/main.c \
 		$(addprefix srcs/helpful/, helpful.c raycasting_help.c mouse.c) \
 		$(addprefix srcs/minimap/, minimap.c) \
 		$(addprefix srcs/raycasting/, calcul.c key_event.c texture.c door.c fonct_mv.c) \
-		parsing/parsing.c \
-		parsing/open_doc.c \
-		parsing/utils/errors.c \
-		parsing/utils/ft_gnljoin.c \
-		parsing/utils/get_extension.c \
-		parsing/utils/gnl.c \
-		parsing/lib/ft_strcmp.c \
+		srcs/parsing/parsing.c \
+		srcs/parsing/open_doc.c \
+		srcs/parsing/utils/errors.c \
+		srcs/parsing/utils/ft_gnljoin.c \
+		srcs/parsing/utils/get_extension.c \
+		srcs/parsing/utils/gnl.c \
+		srcs/parsing/utils/check_extension.c \
+		srcs/parsing/utils/free_parsing.c \
+		srcs/parsing/utils/id.c \
+		srcs/parsing/utils/line_check.c \
+		srcs/parsing/utils/path.c \
+		srcs/parsing/utils/remove_newline.c \
+		srcs/parsing/utils/rgb.c \
+		srcs/parsing/utils/spawn.c \
+		srcs/parsing/utils/valid.c \
+		srcs/parsing/utils/wall_check.c \
+		srcs/parsing/lib/ft_strcmp.c \
+		srcs/parsing/lib/clear_lst.c \
 
 OBJS = $(SRCS:.c=.o)
 

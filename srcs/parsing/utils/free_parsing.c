@@ -6,11 +6,11 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:38:20 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/24 18:27:47 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:41:38 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../../includes/cub3d.h"
 
 int	free_map(char **map)
 {

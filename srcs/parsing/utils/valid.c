@@ -6,13 +6,13 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:44:05 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/24 18:33:17 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:45:03 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../../includes/cub3d.h"
 
-void init_valid(t_info *i)
+void	init_valid(t_info *i)
 {
 	i->valid.n = 0;
 	i->valid.s = 0;
@@ -23,7 +23,7 @@ void init_valid(t_info *i)
 	i->valid.map = 0;
 }
 
-int check_valid(t_info *i)
+int	check_valid(t_info *i)
 {
 	if (!(i->valid.n))
 		return (0);

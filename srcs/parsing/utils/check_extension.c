@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_newline.c                                   :+:      :+:    :+:   */
+/*   check_extension.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/22 20:49:31 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/22 20:49:38 by mgoudin          ###   ########.fr       */
+/*   Created: 2022/11/22 20:49:07 by mgoudin           #+#    #+#             */
+/*   Updated: 2022/11/24 18:17:11 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../../includes/cub3d.h"
 
-char	*remove_newline(char *line)
+int	check_extension(char *src, char *type)
 {
-	int		i;
-	char	*res;
+	char	*extension;
 
-	i = 0;
-	res = ft_calloc(ft_strlen(line), 1);
-	while(line[i] && line[i] != '\n')
+	extension = get_extension(src);
+	if (ft_strcmp(extension, type))
 	{
-		res[i] = line[i];
-		i++;
+		free(extension);
+		return (0);
 	}
-	free(line);
-	return (res);
+	free(extension);
+	return (1);
 }

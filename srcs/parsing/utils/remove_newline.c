@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_doc.c                                         :+:      :+:    :+:   */
+/*   remove_newline.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 19:31:20 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/18 15:40:13 by mgoudin          ###   ########.fr       */
+/*   Created: 2022/11/22 20:49:31 by mgoudin           #+#    #+#             */
+/*   Updated: 2022/11/24 18:17:37 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../../includes/cub3d.h"
 
-int ft_open(char *src)
+char	*remove_newline(char *line)
 {
-    int fd;
-    
-	fd = open(src, O_DIRECTORY | O_WRONLY, 0644);
-	if (fd > 0)
+	int		i;
+	char	*res;
+
+	i = 0;
+	res = ft_calloc(ft_strlen(line), 1);
+	while (line[i] && line[i] != '\n')
 	{
-		printf("%s is a directory\n", src);
-		exit(0);
+		res[i] = line[i];
+		i++;
 	}
-	fd = open(src, O_RDONLY, 0644);
-	if (fd == -1)
-	{
-		printf("%s: No such file or directory\n", src);
-        exit(0);
-	}
-    return (fd);
+	free(line);
+	return (res);
 }

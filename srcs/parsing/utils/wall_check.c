@@ -6,11 +6,11 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:47:39 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/22 21:16:26 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/24 18:17:50 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../../includes/cub3d.h"
 
 int	char_checker(char c, int j)
 {
@@ -23,21 +23,21 @@ int	char_checker(char c, int j)
 
 int	spot_checker(char **map, int i, int j)
 {
-	if (!char_checker(map[i][j + 1], j + 1)) //after
+	if (!char_checker(map[i][j + 1], j + 1))
 		return (0);
-	if (!char_checker(map[i][j - 1], j - 1)) //before
+	if (!char_checker(map[i][j - 1], j - 1))
 		return (0);
-	if (!char_checker(map[i + 1][j], j)) //top
+	if (!char_checker(map[i + 1][j], j))
 		return (0);
-	if (!char_checker(map[i + 1][j + 1], j + 1)) //top-right
+	if (!char_checker(map[i + 1][j + 1], j + 1))
 		return (0);
-	if (!char_checker(map[i + 1][j - 1], j - 1)) //top-left
+	if (!char_checker(map[i + 1][j - 1], j - 1))
 		return (0);
-	if (!char_checker(map[i - 1][j], j)) //bottom
+	if (!char_checker(map[i - 1][j], j))
 		return (0);
-	if (!char_checker(map[i - 1][j + 1], j + 1)) //bottom-right
+	if (!char_checker(map[i - 1][j + 1], j + 1))
 		return (0);
-	if (!char_checker(map[i - 1][j - 1], j - 1)) //bottom-left
+	if (!char_checker(map[i - 1][j - 1], j - 1))
 		return (0);
 	return (1);
 }
@@ -69,7 +69,7 @@ void	wall_check(char **map, t_info *info)
 	int	i;
 
 	i = 0;
-	while(map[i])
+	while (map[i])
 	{
 		if (!i)
 			wall_line_checker_tb(map[i], map, info);
@@ -84,7 +84,6 @@ void	wall_check(char **map, t_info *info)
 				ft_error("Error:\nmap must be closed.\n", 0);
 			}
 		}
-
 		i++;
 	}
 }

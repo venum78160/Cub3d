@@ -6,13 +6,13 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:42:36 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/24 18:26:56 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:44:56 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../../includes/cub3d.h"
 
-int    handle_spawn_EW(char c, t_info *infos)
+int	handle_spawn_ew(char c, t_info *infos)
 {
     if (c == 'E')
     {
@@ -31,9 +31,26 @@ int    handle_spawn_EW(char c, t_info *infos)
         return (1);
     }
     return (0);
+	if (c == 'E')
+	{
+		infos->pla.dirX = 0;
+		infos->pla.dirY = 1;
+		infos->pla.planeX = FOVY;
+		infos->pla.planeY = 0;
+		return (1);
+	}
+	if (c == 'W')
+	{
+		infos->pla.dirX = 0;
+		infos->pla.dirY = -1;
+		infos->pla.planeX = -1 * FOVY;
+		infos->pla.planeY = 0;
+		return (1);
+	}
+	return (0);
 }
 
-int try_set_spawn_point(char c, t_info *infos)
+int	try_set_spawn_point(char c, t_info *infos)
 {
     if (c == 'N')
     {
@@ -54,11 +71,11 @@ int try_set_spawn_point(char c, t_info *infos)
     return (handle_spawn_EW(c, infos));
 }
 
-void    handle_spawn_error(char **map, t_info *infos)
+void	handle_spawn_error(char **map, t_info *infos)
 {
-    free_map(map);
-    free_texture(infos);
-    ft_error("Error:\nmore than 1 spawn.\n", 0);
+	free_map(map);
+	free_texture(infos);
+	ft_error("Error:\nmore than 1 spawn.\n", 0);
 }
 
 int	set_spawn(char **map, t_info *infos)
@@ -78,7 +95,7 @@ int	set_spawn(char **map, t_info *infos)
 			{
 				spawn_amount++;
 				if (spawn_amount > 1)
-                    handle_spawn_error(map, infos);
+					handle_spawn_error(map, infos);
 				infos->pla.pl_y = (double)j + 0.5;
 				infos->pla.pl_x = (double)i + 0.5;
 			}

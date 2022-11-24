@@ -6,13 +6,13 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:47:07 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/22 21:29:17 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/24 18:17:33 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../../includes/cub3d.h"
 
-int	map_char_check(char c, t_info *info)
+int	map_char_check(char c)
 {
 	if (c == ' ')
 		return (1);
@@ -29,7 +29,7 @@ int	map_char_check(char c, t_info *info)
 	if (c == 'S')
 		return (1);
 	if (c == 'P')
-		return (add_bonus_path(info));
+		return (1);
 	if (c == 'O')
 		return (1);
 	if (c == '\n')
@@ -44,7 +44,7 @@ int	line_map_checker(char *line, t_list **head, t_info *info)
 	i = 0;
 	while (line[i])
 	{
-		if (!map_char_check(line[i], info))
+		if (!map_char_check(line[i]))
 		{
 			free(line);
 			free_texture(info);
