@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/24 21:14:07 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/24 21:50:00 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ typedef struct s_data {
 	int		endian;
 	char	*color;
 }	t_data;
+
+struct	s_flags
+{
+	size_t	i;
+	size_t	j;
+};
 
 typedef struct s_valid {
 	int	n;
@@ -156,6 +162,7 @@ int		set_spawn(char **map, t_info *infos);
 int		check_valid(t_info *i);
 void	init_valid(t_info *i);
 void	wall_check(char **map, t_info *info);
+int		has_return(char *str);
 
 /* *************************** INIT ************************** */
 void	text_init(t_info *i);

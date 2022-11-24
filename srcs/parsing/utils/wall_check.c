@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:47:39 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/24 18:17:50 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/24 22:10:42 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,38 @@ int	char_checker(char c, int j)
 	return (0);
 }
 
+int	is_pos(int i, int j)
+{
+	if (i >= 0 && j >= 0)
+		return (1);
+	return (0);
+}
+
 int	spot_checker(char **map, int i, int j)
 {
-	if (!char_checker(map[i][j + 1], j + 1))
+	if (is_pos(i, j + 1)
+		&& !char_checker(map[i][j + 1], j + 1))
 		return (0);
-	if (!char_checker(map[i][j - 1], j - 1))
+	if (is_pos(i, j - 1)
+		&& !char_checker(map[i][j - 1], j - 1))
 		return (0);
-	if (!char_checker(map[i + 1][j], j))
+	if (is_pos(i + 1, j)
+		&& !char_checker(map[i + 1][j], j))
 		return (0);
-	if (!char_checker(map[i + 1][j + 1], j + 1))
+	if (is_pos(i + 1, j + 1)
+		&& !char_checker(map[i + 1][j + 1], j + 1))
 		return (0);
-	if (!char_checker(map[i + 1][j - 1], j - 1))
+	if (is_pos(i + 1, j - 1)
+		&& !char_checker(map[i + 1][j - 1], j - 1))
 		return (0);
-	if (!char_checker(map[i - 1][j], j))
+	if (is_pos(i - 1, j)
+		&& !char_checker(map[i - 1][j], j))
 		return (0);
-	if (!char_checker(map[i - 1][j + 1], j + 1))
+	if (is_pos(i - 1, j + 1)
+		&& !char_checker(map[i - 1][j + 1], j + 1))
 		return (0);
-	if (!char_checker(map[i - 1][j - 1], j - 1))
+	if (is_pos(i - 1, j - 1)
+		&& !char_checker(map[i - 1][j - 1], j - 1))
 		return (0);
 	return (1);
 }

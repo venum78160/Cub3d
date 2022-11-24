@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:41:41 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/24 18:17:23 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/24 21:37:24 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*get_extension(char *src)
 
 	len = ft_strlen(src) - 1;
 	ext_len = get_extension_len(src);
-	res = ft_calloc(ext_len + 1, 1);
+	res = ft_calloc(ext_len + 2, 1);
 	i = 0;
 	while (src[len - ext_len])
 	{
