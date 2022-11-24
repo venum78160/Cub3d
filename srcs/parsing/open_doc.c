@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:31:20 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/24 18:16:50 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/24 18:56:37 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_open(char *src)
 {
 	int	fd;
 
-	fd = open(src, O_DIRECTORY | O_WRONLY, 0644);
+	fd = open(src, O_DIRECTORY | O_RDONLY, 0644);
 	if (fd > 0)
 		ft_error("Error:\nFile is a directory\n", 0);
 	fd = open(src, O_RDONLY, 0644);

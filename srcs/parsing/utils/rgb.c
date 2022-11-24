@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:40:28 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/24 18:17:40 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/24 21:08:13 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,21 @@ int	check_rgb(int n)
 	if (n <= 255 && n >= 0)
 		return (1);
 	return (0);
+}
+
+char	*color_check(char	*color)
+{
+	int	i;
+
+	i = 0;
+	while (color[i])
+	{
+		if (color[i] < '0' || color[i] > '9')
+			if (color[i] != ' ' && color[i] != '\n')
+				ft_error("Error:\nWrong colors.\n", 0);
+		i++;
+	}
+	return (color);
 }
 
 int	colors_to_trgb(char **colors, char *id)
@@ -40,9 +55,9 @@ int	colors_to_trgb(char **colors, char *id)
 		free(id);
 		ft_error("Error:\n bad colors\n", 0);
 	}
-	r = ft_atoi(colors[0]);
-	g = ft_atoi(colors[1]);
-	b = ft_atoi(colors[2]);
+	r = ft_atoi(color_check(colors[0]));
+	g = ft_atoi(color_check(colors[1]));
+	b = ft_atoi(color_check(colors[2]));
 	if (!check_rgb(r) || !check_rgb(g) || !check_rgb(b))
 	{
 		free(colors);
@@ -61,12 +76,12 @@ int	handle_color(char *line, int type, t_info *info, char *id)
 	trgb = colors_to_trgb(colors, id);
 	if (type == 0)
 	{
-		info->valid.F = 1;
+		info->valid.f = 1;
 		info->floor_c = trgb;
 	}
 	if (type == 1)
 	{
-		info->valid.C = 1;
+		info->valid.c = 1;
 		info->ceiling_c = trgb;
 	}
 	free_colors(colors);

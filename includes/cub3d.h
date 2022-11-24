@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/24 18:41:24 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/24 21:05:19 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_valid {
 	int	e;
 	int	f;
 	int	c;
+	int	spawn;
 	int	map;
 }	t_valid;
 
@@ -140,7 +141,7 @@ char	*ft_gnljoin(char *s1, char *s2);
 char	*get_extension(char *src);
 char	*get_next_line(int fd);
 void	clear_lst(void *el);
-int		check_extension(char* src, char *type);
+int		check_extension(char *src, char *type);
 int		free_map(char **map);
 int		free_texture(t_info *info);
 int		free_colors(char **colors);
@@ -150,7 +151,7 @@ int		line_map_checker(char *line, t_list **head, t_info *info);
 int		wall_line_checker_tb(char *line, char **map, t_info *info);
 int		handle_path(char *line, int type, t_info *info, char *id);
 char	*remove_newline(char *line);
-int		handle_color(char *line, int type, t_info *info, char* id);
+int		handle_color(char *line, int type, t_info *info, char *id);
 int		set_spawn(char **map, t_info *infos);
 int		check_valid(t_info *i);
 void	init_valid(t_info *i);

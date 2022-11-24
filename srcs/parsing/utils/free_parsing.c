@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:38:20 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/24 18:41:38 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:46:48 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int	free_map(char **map)
 
 int	free_texture(t_info *info)
 {
-	if (info->valid.S)
+	if (info->valid.s)
 		free(info->text.text_s);
-	if (info->valid.N)
+	if (info->valid.n)
 		free(info->text.text_n);
-	if (info->valid.W)
+	if (info->valid.w)
 		free(info->text.text_w);
-	if (info->valid.E)
+	if (info->valid.e)
 		free(info->text.text_e);
 	return (0);
 }

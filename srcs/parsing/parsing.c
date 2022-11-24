@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:23:52 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/24 18:27:58 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/24 19:01:47 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,15 @@ int	map_parsing(char *line, int fd, t_info *i)
 	char	**map;
 	t_list	**head;
 
-	i->valid.Map = 1;
+	i->valid.map = 1;
 	head = ft_calloc(sizeof(t_list), 1);
 	while (line)
 	{
-		line_map_checker(line, head, i);
-		ft_lstadd_back(head, ft_lstnew(line));
+		if (!is_empty_line(line))
+		{
+			line_map_checker(line, head, i);
+			ft_lstadd_back(head, ft_lstnew(line));
+		}
 		line = get_next_line(fd);
 	}
 	map = lst_to_map(head);
