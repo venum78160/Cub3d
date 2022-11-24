@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/22 20:33:40 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/22 21:16:47 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,24 @@ int		ft_error(char *err, int type);
 char	*ft_gnljoin(char *s1, char *s2);
 char	*get_extension(char *src);
 char	*get_next_line(int fd);
-
+int		add_bonus_path(t_info *info);
+void    handle_bonus(t_info *info, int type, char* path);
+void	clear_lst(void *el);
+int		check_extension(char* src, char *type);
+int		free_map(char **map);
+int		free_texture(t_info *info);
+int		free_colors(char **colors);
+char	*get_extension(char *src);
+int		check_for_id(char *line, t_info *info);
+int		line_map_checker(char *line, t_list **head, t_info *info);
+int		wall_line_checker_tb(char *line, char **map, t_info *info);
+int		handle_path(char *line, int type, t_info *info, char *id);
+char	*remove_newline(char *line);
+int		handle_color(char *line, int type, t_info *info, char* id);
+int		set_spawn(char **map, t_info *infos);
+int		check_valid(t_info *i);
+void	init_valid(t_info *i);
+void	wall_check(char **map, t_info *info);
 
 /* *************************** INIT ************************** */
 

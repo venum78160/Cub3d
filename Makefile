@@ -31,7 +31,19 @@ SRCS = srcs/main.c \
 		parsing/utils/ft_gnljoin.c \
 		parsing/utils/get_extension.c \
 		parsing/utils/gnl.c \
+		parsing/utils/bonus.c \
+		parsing/utils/check_extension.c \
+		parsing/utils/free_parsing.c \
+		parsing/utils/id.c \
+		parsing/utils/line_check.c \
+		parsing/utils/path.c \
+		parsing/utils/remove_newline.c \
+		parsing/utils/rgb.c \
+		parsing/utils/spawn.c \
+		parsing/utils/valid.c \
+		parsing/utils/wall_check.c \
 		parsing/lib/ft_strcmp.c \
+		parsing/lib/clear_lst.c \
 
 OBJS = $(SRCS:.c=.o)
 
