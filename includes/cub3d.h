@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/24 21:05:19 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/24 21:14:07 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ int		set_spawn(char **map, t_info *infos);
 int		check_valid(t_info *i);
 void	init_valid(t_info *i);
 void	wall_check(char **map, t_info *info);
+
 /* *************************** INIT ************************** */
 void	text_init(t_info *i);
 void	text_init2(t_info *i, int x, int y);
