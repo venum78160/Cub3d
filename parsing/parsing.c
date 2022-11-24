@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:23:52 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/22 21:08:14 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/24 18:07:32 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,13 +155,6 @@ int handle_path(char *line, int type, t_info *info, char *id)
 		info->text.text_E->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
 		info->text.text_E->addr = mlx_get_data_addr(info->text.text_E->img, &info->text.text_E->bppixel,
 			&info->text.text_E->line_length, &info->text.text_E->endian);
-	}
-	if (type == 4)
-	{
-		info->text.text_P = ft_calloc(sizeof(t_data), 1);
-		info->text.text_P->img = mlx_xpm_file_to_image(info->mlx , path, &x, &y);
-		info->text.text_P->addr = mlx_get_data_addr(info->text.text_P->img, &info->text.text_P->bppixel,
-			&info->text.text_P->line_length, &info->text.text_P->endian);
 	}
 	free(path);
 	return (1);
