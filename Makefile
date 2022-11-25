@@ -5,13 +5,13 @@ BLUE = "\033[1;34m"
 WHITE = "\033[1;37m"
 RESET = "\033[0m"
 
-NAME = Cub3d
+NAME = cub3D
 
 FRONTNAME = CUB3d
 
 CC = gcc
  
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
 
 HEADER = -I./includes -I./libft -I./minilibx
 

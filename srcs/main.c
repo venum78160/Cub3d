@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/24 22:05:15 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/25 01:10:48 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,6 @@ int	render(t_info *i)
 	return (1);
 }
 
-int	free_all(t_info *info)
-{
-	int	i;
-
-	i = 0;
-	free(info->text.text_s);
-	free(info->text.text_n);
-	free(info->text.text_w);
-	free(info->text.text_e);
-	while (info->map[i])
-		free(info->map[i++]);
-	free(info->map);
-	return (0);
-}
-
 int	main(int argc, char **argv)
 {
 	t_info	i;
@@ -64,5 +49,4 @@ int	main(int argc, char **argv)
 	mlx_hook(i.mlx_win, 6, 0L, mouse_moove, &i);
 	mlx_mouse_hook(i.mlx_win, hide_mouse, &i);
 	mlx_loop(i.mlx);
-	free_all(&i);
 }

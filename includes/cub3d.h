@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 11:26:08 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/24 21:50:00 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/25 01:14:40 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,6 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 /* ************************** ERREUR ************************* */
 void	msg_exit(char *string);
-int		free_all(t_info *info);
 int		ft_quit(t_info *i);
 
 #endif

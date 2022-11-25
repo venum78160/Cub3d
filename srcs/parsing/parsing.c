@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:23:52 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/24 19:01:47 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/25 01:07:45 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,13 @@ int	map_parsing(char *line, int fd, t_info *i)
 			line_map_checker(line, head, i);
 			ft_lstadd_back(head, ft_lstnew(line));
 		}
+		else
+			free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 	map = lst_to_map(head);
+	free(head);
 	wall_check(map, i);
 	set_spawn(map, i);
 	i->map = map;
@@ -77,14 +81,17 @@ void	parsing_v2(t_info *i, char *src)
 	init_valid(i);
 	if (!check_extension(src, ".cub"))
 		ft_error("Error:\nBad file type.", 0);
+	(void)i;
 	fd = ft_open(src);
 	line = get_next_line(fd);
 	while (line)
 	{
 		if (!check_for_id(line, i) && !is_empty_line(line))
 			map_parsing(line, fd, i);
+		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 	close(fd);
 	if (!check_valid(i))
 	{

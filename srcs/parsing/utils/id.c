@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:43:36 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/24 18:17:30 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/25 00:49:39 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,24 @@ char	*get_id(char *line)
 int	check_for_id(char *line, t_info *info)
 {
 	char	*id;
+	int		res;
 
+	res = 0;
 	id = get_id(line);
 	if (!ft_strcmp(id, "NO"))
-		return (handle_path(line, 0, info, id));
+		res = handle_path(line, 0, info, id);
 	if (!ft_strcmp(id, "SO"))
-		return (handle_path(line, 1, info, id));
+		res = handle_path(line, 1, info, id);
 	if (!ft_strcmp(id, "WE"))
-		return (handle_path(line, 2, info, id));
+		res = handle_path(line, 2, info, id);
 	if (!ft_strcmp(id, "EA"))
-		return (handle_path(line, 3, info, id));
+		res = handle_path(line, 3, info, id);
 	if (line[0] && line[0] == 'P')
-		return (handle_path(line, 4, info, id));
+		res = handle_path(line, 4, info, id);
 	if (line[0] && line[0] == 'F')
-		return (handle_color(line, 0, info, id));
+		res = handle_color(line, 0, info, id);
 	if (line[0] && line[0] == 'C')
-		return (handle_color(line, 1, info, id));
+		res = handle_color(line, 1, info, id);
 	free(id);
-	return (0);
+	return (res);
 }
