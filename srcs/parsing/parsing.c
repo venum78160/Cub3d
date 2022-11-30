@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:23:52 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/25 01:07:45 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/30 16:46:57 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	is_empty_line(char *line)
 			return (0);
 		i++;
 	}
+	free(line);
 	return (1);
 }
 
@@ -64,7 +65,6 @@ int	map_parsing(char *line, int fd, t_info *i)
 			free(line);
 		line = get_next_line(fd);
 	}
-	free(line);
 	map = lst_to_map(head);
 	free(head);
 	wall_check(map, i);
@@ -88,10 +88,8 @@ void	parsing_v2(t_info *i, char *src)
 	{
 		if (!check_for_id(line, i) && !is_empty_line(line))
 			map_parsing(line, fd, i);
-		free(line);
 		line = get_next_line(fd);
 	}
-	free(line);
 	close(fd);
 	if (!check_valid(i))
 	{

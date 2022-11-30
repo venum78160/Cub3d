@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/30 17:13:04 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/30 17:52:58 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ int	render(t_info *i)
 	return (1);
 }
 
+int	destroy_close(t_info *i)
+{
+	mlx_destroy_window(i->mlx, i->mlx_win);
+	system("leaks cub3D");
+	exit(1);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_info	i;
@@ -49,6 +57,7 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(i.mlx, render, &i);
 	mlx_hook(i.mlx_win, 2, 1L << 0, keyevent, &i);
 	mlx_hook(i.mlx_win, 6, 0L, mouse_moove, &i);
+	mlx_hook(i.mlx_win, 17, 0, destroy_close, &i);
 	mlx_mouse_hook(i.mlx_win, hide_mouse, &i);
 	mlx_loop(i.mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:01:38 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/25 01:19:02 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/30 16:43:53 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	msg_exit(char *string)
 int	ft_quit(t_info *i)
 {
 	mlx_destroy_window(i->mlx, i->mlx_win);
+	system("leaks cub3D");
 	exit(1);
 	return (EXIT_SUCCESS);
 }
