@@ -6,7 +6,7 @@
 /*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 20:40:28 by mgoudin           #+#    #+#             */
-/*   Updated: 2022/11/24 21:08:13 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/30 16:51:07 by mgoudin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	handle_color(char *line, int type, t_info *info, char *id)
 	char	**colors;
 	int		trgb;
 
-	colors = ft_split(++line, ',');
+	colors = ft_split(&line[1], ',');
 	trgb = colors_to_trgb(colors, id);
 	if (type == 0)
 	{
@@ -85,5 +85,6 @@ int	handle_color(char *line, int type, t_info *info, char *id)
 		info->ceiling_c = trgb;
 	}
 	free_colors(colors);
+	free(line);
 	return (1);
 }
