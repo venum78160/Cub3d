@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpful.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:01:38 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/30 16:43:53 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/30 19:17:39 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	msg_exit(char *string)
 {
-	printf("❌ ");
+	printf("❌ \n");
 	ft_putstr_fd(string, 2);
 	exit(1);
 }
@@ -22,7 +22,6 @@ void	msg_exit(char *string)
 int	ft_quit(t_info *i)
 {
 	mlx_destroy_window(i->mlx, i->mlx_win);
-	system("leaks cub3D");
 	exit(1);
 	return (EXIT_SUCCESS);
 }

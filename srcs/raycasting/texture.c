@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/20 21:17:49 by vl-hotel          #+#    #+#             */
-/*   Updated: 2022/11/30 17:13:09 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/30 19:15:02 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	print_text(t_info *i, int x)
 	i->pla.draw_start = -1 * i->pla.line_h / 2.0 + HEIGHT / 2.0 + 1;
 	if (i->pla.draw_start < 0)
 		i->pla.draw_start = 0;
-	i->pla.draw_end = i->pla.line_h / 2.0 + HEIGHT / 2.0 + 1;
+	i->pla.draw_end = i->pla.line_h / 2.0 + HEIGHT / 2.0;
 	if (i->pla.draw_end >= HEIGHT)
-		i->pla.draw_end = HEIGHT + 1;
+		i->pla.draw_end = HEIGHT;
 	if (i->pla.side)
 		i->text.wallx = i->pla.pl_x + i->pla.dist_wall * i->pla.raydirx;
 	else

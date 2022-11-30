@@ -6,7 +6,7 @@
 /*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/30 17:52:58 by vl-hotel         ###   ########.fr       */
+/*   Updated: 2022/11/30 19:18:36 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@ int	render(t_info *i)
 		print_text(i, x);
 	}
 	mlx_put_image_to_window(i->mlx, i->mlx_win, i->st_img.img, 0, 0);
-	// minimap(i);
+	minimap(i);
 	return (1);
 }
 
 int	destroy_close(t_info *i)
 {
 	mlx_destroy_window(i->mlx, i->mlx_win);
-	system("leaks cub3D");
 	exit(1);
 	return (0);
 }
@@ -41,7 +40,7 @@ int	destroy_close(t_info *i)
 int	main(int argc, char **argv)
 {
 	t_info	i;
-	int tsp;
+	int		tsp;
 
 	if (argc != 2)
 		msg_exit("Error: please use a correct format.\n");

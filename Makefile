@@ -11,7 +11,7 @@ FRONTNAME = CUB3d
 
 CC = gcc
  
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
 HEADER = -I./includes -I./libft -I./minilibx
 
