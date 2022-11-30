@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgoudin <mgoudin@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vl-hotel <vl-hotel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 20:02:26 by lhotellier        #+#    #+#             */
-/*   Updated: 2022/11/25 01:10:48 by mgoudin          ###   ########.fr       */
+/*   Updated: 2022/11/30 17:13:04 by vl-hotel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,14 @@ int	render(t_info *i)
 		print_text(i, x);
 	}
 	mlx_put_image_to_window(i->mlx, i->mlx_win, i->st_img.img, 0, 0);
-	minimap(i);
+	// minimap(i);
 	return (1);
 }
 
 int	main(int argc, char **argv)
 {
 	t_info	i;
+	int tsp;
 
 	if (argc != 2)
 		msg_exit("Error: please use a correct format.\n");
@@ -42,6 +43,7 @@ int	main(int argc, char **argv)
 	i.st_img.addr = mlx_get_data_addr(i.st_img.img,
 			&i.st_img.bppixel, &i.st_img.line_length, &i.st_img.endian);
 	parsing_v2(&i, argv[1]);
+	tsp = 0;
 	text_init(&i);
 	mlx_mouse_hide();
 	mlx_loop_hook(i.mlx, render, &i);

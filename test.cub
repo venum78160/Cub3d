@@ -3,8 +3,8 @@ SO ./texture/jungle/jungle_leaves_opaque.xpm
 WE ./texture/jungle/grass_block.xpm
 EA ./texture/jungle/jungle_log_top.xpm
 
-F 124,252,0
-C 0,0,0
+F 00,252,0
+C 100,100,100
 
 
         1111111111111111111111111
